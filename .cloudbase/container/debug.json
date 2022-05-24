@@ -1,0 +1,33 @@
+{
+  "containers": [
+    {
+      "name": "elevator",
+      "domain": "",
+      "ip": "",
+      "containerId": "8a1714476eaf19b1eb563b00d61b2c81628f68f68cef86909628ddd3e33bff60"
+    }
+  ],
+  "config": {
+    "elevator": {
+      "containerPort": 80,
+      "minNum": 0,
+      "maxNum": 5,
+      "cpu": 1,
+      "mem": 2,
+      "policyType": "cpu",
+      "policyThreshold": 60,
+      "envParams": {
+        "MYSQL_ADDRESS": "10.0.224.14:3306",
+        "MYSQL_PASSWORD": "23Snj2Ug",
+        "MYSQL_USERNAME": "root"
+      },
+      "customLogs": "/app/runtime/log/*",
+      "dataBaseName": "thinkphp_demo",
+      "executeSQLs": [
+        "CREATE DATABASE IF NOT EXISTS thinkphp_demo;",
+        "USE thinkphp_demo;",
+        "CREATE TABLE IF NOT EXISTS `Counters` (`id` int(11) NOT NULL AUTO_INCREMENT, `count` int(11) NOT NULL DEFAULT 1, `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP, `updatedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (`id`)) ENGINE = InnoDB DEFAULT CHARSET = utf8;"
+      ]
+    }
+  }
+}

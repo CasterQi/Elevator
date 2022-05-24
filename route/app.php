@@ -15,3 +15,8 @@ Route::get('/api/count', 'index/getCount');
 
 // 更新计数，自增或者清零
 Route::post('/api/count', 'index/updateCount');
+
+Route::get('/api/get_access_token', 'index/getAccessToken');
+
+Route::get('/api/get_current_floor', 'index/getCurrentFloor');
+

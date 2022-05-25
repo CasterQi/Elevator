@@ -23,7 +23,7 @@ use think\facade\Log;
 class Index
 {
    
-    public $globalToken = 'null';
+    public $globalToken = '';
     /**
      * 主页静态页面
      * @return Html
@@ -155,7 +155,10 @@ class Index
 
    
     public function getCurrentFloor(){
-        $this->globalToken = (new AccessToken)->find(1)["main"];
+        if($this->globalToken == ''){
+            $this->globalToken = (new AccessToken)->find(1)["main"];
+        }
+        
         //dump($this->globalToken);
         $post_data = json_encode(array(
             "names" => ["左笼当前楼层"],
@@ -167,7 +170,7 @@ class Index
         //$res = send_post_jsonX2('http://fbcs101.fbox360.com/api/v2/dmon/value/get?boxNo=338221114635', $post_data, "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg2QzQ2RTIxQTc0MTUxNTFCOTQ0MTY4MzhEMERGODU1OTZENkM2RTgiLCJ0eXAiOiJhdCtqd3QiLCJ4NXQiOiJoc1J1SWFkQlVWRzVSQmFEalEzNFZaYld4dWcifQ.eyJuYmYiOjE2NTM0NDYzMDcsImV4cCI6MTY1MzQ1MzUwNywiaXNzIjoiaHR0cHM6Ly9hY2NvdW50LmZsZXhlbS5jb20vY29yZSIsImF1ZCI6Imlkc3ZyMyIsImNsaWVudF9pZCI6IjA2YmQ3OGJhNDk4MzQwMWRhOTVjNzY2NTZiMTAxNDU4Iiwic3ViIjoiYWJjMjZhOTMtNGEzNi00MjNhLWE5NmQtNjM5MGEyYzNiMzVlIiwic2NvcGUiOlsiZmJveCJdfQ.rIicgFEcEOib6M7NKN99KowBcNikD0pFWrSRE3Qo47Vx2bFGn5mBgWNdg-D0PY4cQAmfiZkZVbrtBYa2jTCt_OQn9ZY4SW4qP5BzS6ODHxrkRAD2hTjy4coKCn-jjGXoj6aRS61h5VMjPTCgbUiHBu92TUm-4eNNas6XLYZ_wAq3r6aoab2HH3q9o6v9tT4aDbyYBiQEeYj0UbldzfHRm3kr9euLNal7rEPZgpjdLmF0Dlfz0mMcvVLc2XSziGOiLdbxq2VdrLIZiBOxB-apMBP4iEILizcA_MsWvT39cmnk0aaMONC8oIA-qipXrfqJwU6mR1c6_Q_blOyHnMenYg");
         list($httpCode , $resContent) = $res;
         if($httpCode == 401){
-            if($this->globalToken != ''){
+            if($this->globalToken != ''&&$this->globalToken != null){
                 $this->getAccessToken();
             }
             Log::write('getCurrentFloor rsp: '.$httpCode.' '.$resContent.'Token='.$this->globalToken);
@@ -179,12 +182,35 @@ class Index
         }
         $num_floor = json_decode(substr($resContent, 1, -1),true)['value'];
         //dump($res);
-        Log::write('getCurrentFloor rsp: '.$httpCode.' '.$num_floor);
-        $restojs = [
-            "code" => 0,
-            "data" =>  $num_floor
-        ];
+        if($num_floor == null){
+            Log::write('getCurrentFloor rsp: '.substr($resContent, 1, -1));
+            $restojs = [
+                "code" => -2,
+                "data" =>  '电梯离线'
+            ];
+        }else{
+            Log::write('getCurrentFloor rsp: '.$httpCode.' '.$num_floor);
+            $restojs = [
+                "code" => 0,
+                "data" =>  $num_floor
+            ];
+        }
         return json($restojs);
+    }
+
+    public function elevatorCall(){
+
+        $post_data = json_encode(array(
+            "names" => ["左笼当前楼层"],
+            "groupnames" => ["左笼"],
+            "type" => 0,
+            "type" => 0,
+            "value" => 0
+        ));
+
+
+        $res = send_post_jsonX2('http://fbcs101.fbox360.com/api/v2/dmon/value?boxNo=338221114635', $post_data, $this->globalToken);
+
     }
       
 

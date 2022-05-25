@@ -1,132 +1,210 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <link
-      rel="shortcut icon"
-      href="https://static-index-4gtuqm3bfa95c963-1304825656.tcloudbaseapp.com/official-website/favicon.svg"
-      mce_href="https://static-index-4gtuqm3bfa95c963-1304825656.tcloudbaseapp.com/official-website/favicon.svg"
-      type="image/x-icon"
-    />
-    <meta name="viewport" content="width=650,user-scalable=no" />
-    <!-- <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-      crossorigin="anonymous"
-    /> -->
-    <title>欢迎使用微信云托管</title>
-    <style>
-      .title-logo {
-        height: 80px;
-      }
-      .container {
-        margin-top: 100px;
-      }
-      .count-button {
-        width: 132px;
-        box-sizing: border-box;
-        margin: 16px 8px;
-      }
-      .count-number {
-        font-size: 18px;
-        font-weight: bolder;
-        margin: 0 8px;
-      }
-      .count-text {
-        width: 280px;
-        display: flex;
-        margin: 0 auto;
-        text-align: left;
-        height: 40px;
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        border-radius: 4px;
-        line-height: 40px;
-        padding: 0 12px;
-      }
-      .quote {
-        font-size: 12px;
-      }
-      .qrcode {
-        height: 180px;
-        display: block;
-        margin: 0 auto;
-      }
-      .title {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-      }
-    </style>
-  </head>
 
-  <body>
-    <div class="container">
-      <div class="title">
-        <img
-          class="title-logo"
-          src="https://static-index-4gtuqm3bfa95c963-1304825656.tcloudbaseapp.com/official-website/favicon.svg"
-        />
-        <h1 style="display: inline; margin-bottom: 48px;">欢迎使用微信云托管</h1>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+  <title>WeUI</title>
+  <!-- 引入 WeUI CDN 链接 -->
+  <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.3.0/weui.min.css" />
+  <link rel="stylesheet" href="./iconFont/iconfont.css" />
+  <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+  <!DOCTYPE html>
+  <html lang="en">
+
+  <style>
+    div.mydiv {
+
+
+      /*此元素会作为一个表格单元格显示
+            （类似 <td> 和 <th>）*/
+      display: table-cell;
+      /*垂直居中 */
+      vertical-align: middle;
+      /*水平居中*/
+      text-align: center;
+    }
+  </style>
+
+
+
+</head>
+
+<body>
+  <!-- 使用 -->
+  <!-- <a href="javascript:;" class="weui-btn weui-btn_primary">绿色按钮</a> -->
+
+
+  <!-- <div class="page">
+            <div class="page__hd">
+                <h1 class="page__title">Flex</h1>
+                <p class="page__desc">Flex布局</p>
+            </div>
+            <div class="page__bd page__bd_spacing">
+                <div class="weui-flex">
+                    <div class="weui-flex__item"><div class="placeholder">weui</div></div>
+                </div>
+                <div class="weui-flex">
+                    <div class="weui-flex__item"><div class="placeholder">weui</div></div>
+                    <div class="weui-flex__item"><div class="placeholder">weui</div></div>
+                </div>
+                <div class="weui-flex">
+                    <div class="weui-cell__bd">
+                        <input id="js_input3" class="weui-input" placeholder="填写绑定的电话号码" type="number" pattern="[0-9]*" />
+                    </div>
+                    <div class="weui-flex__item"><div class="placeholder">weui</div></div>
+                    <div class="weui-cell__bd">
+                        <input id="js_input3" class="weui-input" placeholder="填写绑定的电话号码" type="number" pattern="[0-9]*" />
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+  <div class="page">
+    <div class="weui-form">
+      <div class="weui-form__text-area">
+        <h2 class="weui-form__title">表单结构</h2>
+        <div class="weui-form__desc">展示表单页面的信息结构样式, 分别由头部区域/控件区域/提示区域/操作区域和底部信息区域组成。</div>
       </div>
-      <div style="text-align: center">
-        <p class="count-text">当前计数：<span class="count-number"></span></p>
-        <div
-          style="display: flex; justify-content: center; margin-bottom: 80px"
-        >
-          <a class="btn btn-success btn-lg count-button" style="background: #07C160; border: 0;" onclick="set('inc')"
-            >计数+1</a
-          >
-          <a
-            class="btn btn-outline-success btn-lg count-button"
-            style="background: rgba(0,0,0,0.03); color: #07C160; border: 0;"
-            onclick="set('clear')"
-            >清零</a
-          >
+
+      <div class="mydiv">
+
+        <!-- <i class="iconfont">&#xe696;</i> -->
+        <div id="elevatorPosition" style="font-size: 58px;font-weight: bold;">...</div>
+        <div class="weui-form__tips-area">
+          <p class="weui-form__tips">
+            电梯当前位置
+          </p>
         </div>
-        <small
-          class="text-black-50"
-          style="display: flex; justify-content: center; margin-bottom: 16px"
-          >扫码加入微信云托管用户群</small
-        >
-        <img
-          class="qrcode middle"
-          src="https://qcloudimg.tencent-cloud.cn/raw/89b46988d3cd73d8a56e76a1b82bb377.png"
-        />
+      </div>
+
+      <div class="weui-form__control-area">
+        <div class="weui-cells__group weui-cells__group_form">
+          <div class="weui-cells__title">楼层呼叫</div>
+          <div class="weui-cells">
+            <label for="js_input1" class="weui-cell weui-cell_active">
+              <div class="weui-cell__hd"><span class="weui-label">当前楼层</span>
+                <div class="weui-cell__desc"></div>
+              </div>
+              <div class="weui-cell__bd">
+                <input id="js_input1" class="weui-input" placeholder="当前所在楼层" type="number" pattern="[0-9]*" />
+              </div>
+            </label>
+            <label for="js_input2" class="weui-cell weui-cell_active">
+              <div class="weui-cell__hd"><span class="weui-label">目标楼层</span>
+                <div class="weui-cell__desc"></div>
+              </div>
+              <div class="weui-cell__bd">
+                <input id="js_input2" class="weui-input" placeholder="期望到达楼层" type="number" pattern="[0-9]*" />
+              </div>
+            </label>
+
+          </div>
+        </div>
+      </div>
+      <!-- <div class="weui-form__tips-area">
+                <p class="weui-form__tips">
+                  表单页提示，居中对齐
+                </p>
+              </div> -->
+      <div class="weui-form__opr-area">
+        <a role="button" disabled aria-disabled="true" class="weui-btn weui-btn_primary weui-btn_disabled"
+          href="javascript:" id="showTooltips">呼叫</a>
+      </div>
+      <!-- <div class="weui-form__tips-area">
+                <p class="weui-form__tips">
+                  表单页提示，居中对齐
+                </p>
+              </div> -->
+      <div class="weui-form__extra-area">
+        <div class="weui-footer">
+          <p class="weui-footer__links">
+            <a href="javascript:" class="weui-footer__link">底部链接文本</a>
+          </p>
+          <p class="weui-footer__text">Copyright © 2022 Pure Imagination AI解决方案 × 家琦科技</p>
+        </div>
       </div>
     </div>
-  </body>
-  <script src="https://mat1.gtimg.com/www/asset/lib/jquery/jquery/jquery-1.11.1.min.js"></script>
-  <!-- <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-    crossorigin="anonymous"
-  ></script> -->
-  <script>
-    init();
-    function init() {
-      $.ajax("/api/count", {
-        method: "get",
-      }).done(function (res) {
-        if (res && res.data !== undefined) {
-          $(".count-number").html(res.data);
+    <div role="alert" id="js_toast" style="display: none;">
+      <div class="weui-mask_transparent"></div>
+      <div class="weui-toast">
+        <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+        <p class="weui-toast__content">已完成</p>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    $(function () {
+      var $toast = $('#js_toast');
+      var $input1 = $('#js_input1');
+      var $input2 = $('#js_input2');
+      $input1.on('input', function () {
+        if ($input1.val() != '' && $input2.val() != '') {
+          $('#showTooltips').removeClass('weui-btn_disabled');
+          $('#showTooltips').attr('aria-disabled', 'false');
+          $('#showTooltips').removeAttr('disabled');
+        } else {
+          $('#showTooltips').addClass('weui-btn_disabled');
+          $('#showTooltips').addClass('weui-btn_disabled');
+          $('#showTooltips').attr('aria-disabled', 'true');
+          $('#showTooltips').attr('disabled');
         }
       });
-    }
-    function set(action) {
-      $.ajax("/api/count", {
-        method: "POST",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        data: JSON.stringify({
-          action: action,
-        }),
-      }).done(function (res) {
-        if (res && res.data !== undefined) {
-          $(".count-number").html(res.data);
+      $input2.on('input', function () {
+        if ($input1.val() != '' && $input2.val() != '') {
+          $('#showTooltips').removeClass('weui-btn_disabled');
+          $('#showTooltips').attr('aria-disabled', 'false');
+          $('#showTooltips').removeAttr('disabled');
+        } else {
+          $('#showTooltips').addClass('weui-btn_disabled');
+          $('#showTooltips').addClass('weui-btn_disabled');
+          $('#showTooltips').attr('aria-disabled', 'true');
+          $('#showTooltips').attr('disabled');
         }
       });
-    }
+      $('#showTooltips').on('click', function () {
+        if ($(this).hasClass('weui-btn_disabled')) return;
+
+        // toptips的fixed, 如果有`animation`, `position: fixed`不生效
+        $('.page.cell').removeClass('slideIn');
+
+        $toast.attr('aria-live', 'assertive');
+        $toast.fadeIn(100);
+        setTimeout(function () {
+          $toast.attr('aria-live', 'off');
+          $toast.fadeOut(100);
+        }, 2000);
+      });
+
+      //$('.weui-cell').on('click', function(){
+      //  $(this).find('input').trigger('focus');
+      //});
+    });
   </script>
+
+
+
+
+
+  <div class="page">
+
+
+  </div>
+
+</body>
+<script>
+  getFloor()
+  function getFloor() {
+    $.ajax("/api/get_current_floor", {
+      method: "get",
+    }).done(function (res) {
+      console.log(res)
+      if (res && res.data !== undefined) {
+        $("#elevatorPosition").html(res.data);
+      }
+    });
+  }
+</script>
+
 </html>

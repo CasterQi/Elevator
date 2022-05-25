@@ -1,4 +1,5 @@
 <?php
+
 function send_postX($url, $post_data) {
         $postdata = http_build_query($post_data);
         $options = array(
@@ -42,11 +43,10 @@ function send_post_jsonX2($url, $post_data, $token) {
     curl_setopt($curl, CURLOPT_POST, true);
     curl_setopt($curl, CURLOPT_POSTFIELDS, $post_data);
     $response = curl_exec($curl);
-    //dump($response);
+    $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
     curl_close($curl);
-
-    //$httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-    //$data = json_decode(file_get_contents('php://input'), true);
-    return  $response;
+    //dump($httpCode);
+    
+    return  array($httpCode,$response);
 }
       

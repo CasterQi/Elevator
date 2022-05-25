@@ -23,7 +23,7 @@ use think\facade\Log;
 class Index
 {
    
-    
+    public $globalToken = 'null';
     /**
      * 主页静态页面
      * @return Html
@@ -31,6 +31,7 @@ class Index
     public function index(): Html
     {
         # html路径: ../view/index.html
+        $this->globalToken = (new AccessToken)->find(1)["main"];
         return response(file_get_contents(dirname(dirname(__FILE__)).'/view/index.html'));
     }
 
@@ -101,6 +102,7 @@ class Index
                 "data" =>  $count
             ];
             Log::write('updateCount rsp: '.json_encode($res));
+            
             return json($res);
         } catch (Exception $e) {
             $res = [
@@ -127,7 +129,7 @@ class Index
             //$tokenData = '{"access_token":"eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg2QzQ2RTIxQTc0MTUxNTFCOTQ0MTY4MzhEMERGODU1OTZENkM2RTgiLCJ0eXAiOiJhdCtqd3QiLCJ4NXQiOiJoc1J1SWFkQlVWRzVSQmFEalEzNFZaYld4dWcifQ.eyJuYmYiOjE2NTMzODI5NzAsImV4cCI6MTY1MzM5MDE3MCwiaXNzIjoiaHR0cHM6Ly9hY2NvdW50LmZsZXhlbS5jb20vY29yZSIsImF1ZCI6Imlkc3ZyMyIsImNsaWVudF9pZCI6IjA2YmQ3OGJhNDk4MzQwMWRhOTVjNzY2NTZiMTAxNDU4Iiwic3ViIjoiYWJjMjZhOTMtNGEzNi00MjNhLWE5NmQtNjM5MGEyYzNiMzVlIiwic2NvcGUiOlsiZmJveCJdfQ.SdG83h5hQ9MlfKTq-yGoKpdrv23IQOYTAebaFcsVo_kk7V7gLHELPpxXF0EKv5e6c23Df-Vdj7waczhFOojVMkufIuc5jgVBc832-7KUe-Cq8F0P8YPsTybLlTkzzjzvqXlA_ElffhWLexIVUkmCcIBdnN9jDwLGL7pmLXjv4z9AWNUhTVxoA93cBQAiU54CEXlOx_-3eXXR8coyAtJO46hnEtF83mmAw31aaoG23kumYmYbXs1wjz9lCZimdM5x67M8SMKna90MxoKxnsTmHhRGjISTrJyxQ_guQfXC7AxY-jDkd7sI0N7sqvLpRm0CHDUXD1CgGHCLA3DarSYXZg","expires_in":7200,"token_type":"Bearer","scope":"fbox"}';
             $realAccessToken = json_decode($tokenData,true)['access_token'];
             Log::write('accessToken rsp: '.$realAccessToken);
-            $GLOBALS['accessToken'] = $realAccessToken;
+            $this->globalToken = $realAccessToken;
             $accessToken = new AccessToken;
             AccessToken::destroy(1);
             $accessToken->create(
@@ -137,7 +139,7 @@ class Index
             $res = [
                 "code" => 0,
                 "data" => [],
-                "errorMsg" => ("查询accessToken成功")
+                "errorMsg" => ("获取accessToken成功")
             ];
             return json($res);
         } catch (Exception $e) {
@@ -153,17 +155,36 @@ class Index
 
    
     public function getCurrentFloor(){
+        $this->globalToken = (new AccessToken)->find(1)["main"];
+        //dump($this->globalToken);
         $post_data = json_encode(array(
             "names" => ["左笼当前楼层"],
             "groupnames" => ["左笼"],
             "timeOut" => null
         ));
-        $res = send_post_jsonX2('http://fbcs101.fbox360.com/api/v2/dmon/value/get?boxNo=338221114635', $post_data, (new AccessToken)->find(1));
-        //$res = send_post_jsonX2('http://fbcs101.fbox360.com/api/v2/dmon/value/get?boxNo=338221114635', $post_data, "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg2QzQ2RTIxQTc0MTUxNTFCOTQ0MTY4MzhEMERGODU1OTZENkM2RTgiLCJ0eXAiOiJhdCtqd3QiLCJ4NXQiOiJoc1J1SWFkQlVWRzVSQmFEalEzNFZaYld4dWcifQ.eyJuYmYiOjE2NTM0MDI0ODEsImV4cCI6MTY1MzQwOTY4MSwiaXNzIjoiaHR0cHM6Ly9hY2NvdW50LmZsZXhlbS5jb20vY29yZSIsImF1ZCI6Imlkc3ZyMyIsImNsaWVudF9pZCI6IjA2YmQ3OGJhNDk4MzQwMWRhOTVjNzY2NTZiMTAxNDU4Iiwic3ViIjoiYWJjMjZhOTMtNGEzNi00MjNhLWE5NmQtNjM5MGEyYzNiMzVlIiwic2NvcGUiOlsiZmJveCJdfQ.gwJtBaApth4LAV0JDJlz2k-XPN7_pSMjR1X1w4ly99bx6KbOmWmySu9cjrBBSFiida5oF7NqFJCdymVPHyu83KUUA2cKES0uGrQ6YLJYAp5qIEkJ44AJZH_KOukyO2sGENpvMP1odv7UOfuQmhZkreOWzXSTkaokjhBCvSmBKSs1d5LGjuJZDjQU00qBhkn3RevHSG0gcp_IXGF9mvb26p3uVcaUq2X9lwbgOXzUHAtq0tlvluQN_PZFMyzUphwcri6Dbk6_lqyAK94Dhm64CAbHPPhTrknuT95Wr5grrnPNqf__FHcr7fWqAmjAkAaM_M9Ja5EYXKtGKIOWKXjnOQ");
-        $num_floor = json_decode($res,true)['value'];
-        dump($res);
-        Log::write('getCurrentFloor rsp: '.$num_floor);
-        return $num_floor;
+        //$res = send_post_jsonX2('http://fbcs101.fbox360.com/api/v2/dmon/value/get?boxNo=338221114635', $post_data, (new AccessToken)->find(1));
+        $res = send_post_jsonX2('http://fbcs101.fbox360.com/api/v2/dmon/value/get?boxNo=338221114635', $post_data, $this->globalToken);
+        //$res = send_post_jsonX2('http://fbcs101.fbox360.com/api/v2/dmon/value/get?boxNo=338221114635', $post_data, "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg2QzQ2RTIxQTc0MTUxNTFCOTQ0MTY4MzhEMERGODU1OTZENkM2RTgiLCJ0eXAiOiJhdCtqd3QiLCJ4NXQiOiJoc1J1SWFkQlVWRzVSQmFEalEzNFZaYld4dWcifQ.eyJuYmYiOjE2NTM0NDYzMDcsImV4cCI6MTY1MzQ1MzUwNywiaXNzIjoiaHR0cHM6Ly9hY2NvdW50LmZsZXhlbS5jb20vY29yZSIsImF1ZCI6Imlkc3ZyMyIsImNsaWVudF9pZCI6IjA2YmQ3OGJhNDk4MzQwMWRhOTVjNzY2NTZiMTAxNDU4Iiwic3ViIjoiYWJjMjZhOTMtNGEzNi00MjNhLWE5NmQtNjM5MGEyYzNiMzVlIiwic2NvcGUiOlsiZmJveCJdfQ.rIicgFEcEOib6M7NKN99KowBcNikD0pFWrSRE3Qo47Vx2bFGn5mBgWNdg-D0PY4cQAmfiZkZVbrtBYa2jTCt_OQn9ZY4SW4qP5BzS6ODHxrkRAD2hTjy4coKCn-jjGXoj6aRS61h5VMjPTCgbUiHBu92TUm-4eNNas6XLYZ_wAq3r6aoab2HH3q9o6v9tT4aDbyYBiQEeYj0UbldzfHRm3kr9euLNal7rEPZgpjdLmF0Dlfz0mMcvVLc2XSziGOiLdbxq2VdrLIZiBOxB-apMBP4iEILizcA_MsWvT39cmnk0aaMONC8oIA-qipXrfqJwU6mR1c6_Q_blOyHnMenYg");
+        list($httpCode , $resContent) = $res;
+        if($httpCode == 401){
+            if($this->globalToken != ''){
+                $this->getAccessToken();
+            }
+            Log::write('getCurrentFloor rsp: '.$httpCode.' '.$resContent.'Token='.$this->globalToken);
+            $restojs = [
+                "code" => -1,
+                "data" =>  'ErrCode:'.$httpCode
+            ];
+            return json($restojs);
+        }
+        $num_floor = json_decode(substr($resContent, 1, -1),true)['value'];
+        //dump($res);
+        Log::write('getCurrentFloor rsp: '.$httpCode.' '.$num_floor);
+        $restojs = [
+            "code" => 0,
+            "data" =>  $num_floor
+        ];
+        return json($restojs);
     }
       
 

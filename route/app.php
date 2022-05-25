@@ -20,3 +20,7 @@ Route::get('/api/get_access_token', 'index/getAccessToken');
 
 Route::get('/api/get_current_floor', 'index/getCurrentFloor');
 
+Route::post('/api/elevator_call', 'index/elevatorCall');
+
+
+

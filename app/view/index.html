@@ -7,7 +7,7 @@
   <title>WeUI</title>
   <!-- 引入 WeUI CDN 链接 -->
   <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.3.0/weui.min.css" />
-  <link rel="stylesheet" href="./iconFont/iconfont.css" />
+  <!-- <link rel="stylesheet" href="./iconFont/iconfont.css" /> -->
   <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 
   <!DOCTYPE html>
@@ -64,8 +64,8 @@
   <div class="page">
     <div class="weui-form">
       <div class="weui-form__text-area">
-        <h2 class="weui-form__title">表单结构</h2>
-        <div class="weui-form__desc">展示表单页面的信息结构样式, 分别由头部区域/控件区域/提示区域/操作区域和底部信息区域组成。</div>
+        <h2 class="weui-form__title">JADGE</h2>
+        <div class="weui-form__desc" style="margin-top: 0;">佳琪</div>
       </div>
 
       <div class="mydiv">
@@ -88,9 +88,24 @@
                 <div class="weui-cell__desc"></div>
               </div>
               <div class="weui-cell__bd">
-                <input id="js_input1" class="weui-input" placeholder="当前所在楼层" type="number" pattern="[0-9]*" />
+                <input id="js_input1" class="weui-input" placeholder="本人所在楼层" type="number" pattern="[0-9]*" />
               </div>
             </label>
+
+           
+
+          </div>
+        </div>
+      </div>
+      <div class="weui-form__opr-area" style="margin-bottom:0">
+        <a role="button" disabled aria-disabled="true" class="weui-btn weui-btn_primary weui-btn_disabled"
+          href="javascript:" id="showTooltips1">呼叫</a>
+      </div>
+
+      <div class="weui-form__control-area">
+        <div class="weui-cells__group weui-cells__group_form">
+          <div class="weui-cells__title">电梯执行</div>  
+          <div class="weui-cells"> 
             <label for="js_input2" class="weui-cell weui-cell_active">
               <div class="weui-cell__hd"><span class="weui-label">目标楼层</span>
                 <div class="weui-cell__desc"></div>
@@ -110,7 +125,7 @@
               </div> -->
       <div class="weui-form__opr-area">
         <a role="button" disabled aria-disabled="true" class="weui-btn weui-btn_primary weui-btn_disabled"
-          href="javascript:" id="showTooltips">呼叫</a>
+          href="javascript:" id="showTooltips2">执行</a>
       </div>
       <!-- <div class="weui-form__tips-area">
                 <p class="weui-form__tips">
@@ -122,7 +137,7 @@
           <p class="weui-footer__links">
             <a href="javascript:" class="weui-footer__link">底部链接文本</a>
           </p>
-          <p class="weui-footer__text">Copyright © 2022 Pure Imagination AI解决方案 × 家琦科技</p>
+          <p class="weui-footer__text">Copyright © 2022 Pure Imagination AI解决方案 × 佳琪科技</p>
         </div>
       </div>
     </div>
@@ -130,52 +145,122 @@
       <div class="weui-mask_transparent"></div>
       <div class="weui-toast">
         <i class="weui-icon-success-no-circle weui-icon_toast"></i>
-        <p class="weui-toast__content">已完成</p>
+        <p class="weui-toast__content">请求发送</p>
       </div>
     </div>
+
+      <!-- loading toast -->
+      <div role="alert" id="loadingToast" style="display: none;">
+        <div class="weui-mask_transparent"></div>
+        <div class="weui-toast">
+            <span class="weui-primary-loading weui-icon_toast">
+              <span class="weui-primary-loading__dot"></span>
+            </span>
+            <p class="weui-toast__content">请求发送</p>
+        </div>
+      </div>
+
+
+    <div role="alert" id="js_toast_success" style="display: none;">
+      <div class="weui-mask_transparent"></div>
+      <div class="weui-toast">
+        <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+        <p class="weui-toast__content">请求成功</p>
+      </div>
+    </div>
+
   </div>
   <script type="text/javascript">
     $(function () {
       var $toast = $('#js_toast');
+      var $toast_success = $('#js_toast_success');
+      var $toast_calling = $('#loadingToast');
       var $input1 = $('#js_input1');
       var $input2 = $('#js_input2');
       $input1.on('input', function () {
-        if ($input1.val() != '' && $input2.val() != '') {
-          $('#showTooltips').removeClass('weui-btn_disabled');
-          $('#showTooltips').attr('aria-disabled', 'false');
-          $('#showTooltips').removeAttr('disabled');
+        if ($input1.val() != '') {
+          $('#showTooltips1').removeClass('weui-btn_disabled');
+          $('#showTooltips1').attr('aria-disabled', 'false');
+          $('#showTooltips1').removeAttr('disabled');
         } else {
-          $('#showTooltips').addClass('weui-btn_disabled');
-          $('#showTooltips').addClass('weui-btn_disabled');
-          $('#showTooltips').attr('aria-disabled', 'true');
-          $('#showTooltips').attr('disabled');
+          $('#showTooltips1').addClass('weui-btn_disabled');
+          $('#showTooltips1').addClass('weui-btn_disabled');
+          $('#showTooltips1').attr('aria-disabled', 'true');
+          $('#showTooltips1').attr('disabled');
         }
       });
       $input2.on('input', function () {
-        if ($input1.val() != '' && $input2.val() != '') {
-          $('#showTooltips').removeClass('weui-btn_disabled');
-          $('#showTooltips').attr('aria-disabled', 'false');
-          $('#showTooltips').removeAttr('disabled');
+        if ($input2.val() != '') {
+          $('#showTooltips2').removeClass('weui-btn_disabled');
+          $('#showTooltips2').attr('aria-disabled', 'false');
+          $('#showTooltips2').removeAttr('disabled');
         } else {
-          $('#showTooltips').addClass('weui-btn_disabled');
-          $('#showTooltips').addClass('weui-btn_disabled');
-          $('#showTooltips').attr('aria-disabled', 'true');
-          $('#showTooltips').attr('disabled');
+          $('#showTooltips2').addClass('weui-btn_disabled');
+          $('#showTooltips2').addClass('weui-btn_disabled');
+          $('#showTooltips2').attr('aria-disabled', 'true');
+          $('#showTooltips2').attr('disabled');
         }
       });
-      $('#showTooltips').on('click', function () {
-        if ($(this).hasClass('weui-btn_disabled')) return;
 
-        // toptips的fixed, 如果有`animation`, `position: fixed`不生效
+      //呼叫
+      $('#showTooltips1').on('click', function () {
+        if ($(this).hasClass('weui-btn_disabled')) return;
+        
+        $('#showTooltips1').addClass('weui-btn_disabled');
+        $('#showTooltips1').addClass('weui-btn_disabled');
+        $('#showTooltips1').attr('aria-disabled', 'true');
+        $('#showTooltips1').attr('disabled');
+        set1($input1.val())
+        function set1(callFloor) {
+          $.ajax("/api/elevator_call", {
+              method: "POST",
+              contentType: "application/json; charset=utf-8",
+              dataType: "json",
+              data: JSON.stringify({
+                callFloor: callFloor,
+          }),
+        }).done(function (res) {
+          if (res && res.data !== undefined) {
+            //$(".count-number").html(res.data);
+            $('#showTooltips1').removeClass('weui-btn_disabled');
+            $('#showTooltips1').attr('aria-disabled', 'false');
+            $('#showTooltips1').removeAttr('disabled');
+            ToastCallSuccess()
+          }
+        });
+      }
+        ToastCalling();
+      });
+
+      //执行
+
+      $('#showTooltips2').on('click', function () {
+        if ($(this).hasClass('weui-btn_disabled')) return;
+        
+        
+       
+      });
+
+      function ToastCalling(){
         $('.page.cell').removeClass('slideIn');
 
-        $toast.attr('aria-live', 'assertive');
-        $toast.fadeIn(100);
+        $toast_calling.attr('aria-live', 'assertive');
+        $toast_calling.fadeIn(100);
         setTimeout(function () {
-          $toast.attr('aria-live', 'off');
-          $toast.fadeOut(100);
+          $toast_calling.attr('aria-live', 'off');
+          $toast_calling.fadeOut(100);
         }, 2000);
-      });
+      }
+      
+      function ToastCallSuccess(){
+          $('.page.cell').removeClass('slideIn');
+          $toast_success.attr('aria-live', 'assertive');
+          $toast_success.fadeIn(100);
+          setTimeout(function () {
+            $toast_success.attr('aria-live', 'off');
+            $toast_success.fadeOut(100);
+          }, 2000);
+        }
 
       //$('.weui-cell').on('click', function(){
       //  $(this).find('input').trigger('focus');

@@ -31,7 +31,7 @@ class Index
     public function index(): Html
     {
         # html路径: ../view/index.html
-        $this->globalToken = (new AccessToken)->find(1)["main"];
+        //$this->globalToken = (new AccessToken)->find(1)["main"];
         return response(file_get_contents(dirname(dirname(__FILE__)).'/view/index.html'));
     }
 
@@ -198,19 +198,45 @@ class Index
         return json($restojs);
     }
 
-    public function elevatorCall(){
+    public function elevatorCall($callFloor){
+        if($this->globalToken == ''){
+            $this->globalToken = (new AccessToken)->find(1)["main"];
+        }
+        $post_data_start = json_encode(array(
+            "name" => '左呼叫层'.$callFloor,
+            "groupname" => "左笼",
+            "value" => 1,
+            "type" => 1
+            
+        ));
 
-        $post_data = json_encode(array(
-            "names" => ["左笼当前楼层"],
-            "groupnames" => ["左笼"],
-            "type" => 0,
-            "type" => 0,
-            "value" => 0
+        $post_data_finsh = json_encode(array(
+            "name" => '左呼叫层'.$callFloor,
+            "groupname" => "左笼",
+            "value" => 1,
+            "type" => 1,
         ));
 
 
-        $res = send_post_jsonX2('http://fbcs101.fbox360.com/api/v2/dmon/value?boxNo=338221114635', $post_data, $this->globalToken);
+        list($httpCode_start , $resContent_start) = send_post_jsonX2('http://fbcs101.fbox360.com/api/v2/dmon/value?boxNo=338221114635', $post_data_start, $this->globalToken);
+        list($httpCode_finsh , $resContent_finsh) = send_post_jsonX2('http://fbcs101.fbox360.com/api/v2/dmon/value?boxNo=338221114635', $post_data_finsh, $this->globalToken);
+        
+        Log::write('elevatorCall Start->Finsh rsp: '.$httpCode_start.'->'.$httpCode_finsh.' '.$callFloor.$post_data_start);
+        if($httpCode_start == 200 && $httpCode_finsh ==200){
+            $restojs = [
+                "code" => 0,
+                "data" =>  'success'
+            ];
+            return json($restojs);
+        }else{
+            $restojs = [
+                "code" => -1,
+                "data" =>  $resContent_start.'\n'.$resContent_finsh
+            ];
+            Log::write('[failed] elevatorCall Start->Finsh rsp: '.$httpCode_start.'->'.$httpCode_finsh.' '.$callFloor.'\n'.$resContent_start.'\n->\n'.$resContent_finsh);
 
+            return json($restojs);
+        }
     }
       
 

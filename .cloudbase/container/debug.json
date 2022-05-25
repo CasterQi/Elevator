@@ -4,7 +4,7 @@
       "name": "elevator",
       "domain": "",
       "ip": "",
-      "containerId": "8a1714476eaf19b1eb563b00d61b2c81628f68f68cef86909628ddd3e33bff60"
+      "mode": "compose"
     }
   ],
   "config": {

@@ -42,7 +42,7 @@ function send_post_jsonX2($url, $post_data, $token) {
     curl_setopt($curl, CURLOPT_POST, true);
     curl_setopt($curl, CURLOPT_POSTFIELDS, $post_data);
     $response = curl_exec($curl);
-    dump($response);
+    //dump($response);
     curl_close($curl);
 
     //$httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);

@@ -137,7 +137,7 @@ class Index
             $res = [
                 "code" => 0,
                 "data" => [],
-                "errorMsg" => ("查询accessToken成功" . $e->getMessage())
+                "errorMsg" => ("查询accessToken成功")
             ];
             return json($res);
         } catch (Exception $e) {
@@ -158,10 +158,12 @@ class Index
             "groupnames" => ["左笼"],
             "timeOut" => null
         ));
-        // $res = send_post_jsonX2('http://fbcs101.fbox360.com/api/v2/dmon/value/get?boxNo=338221114635', $post_data, (new AccessToken)->find(1));
-        $res = send_post_jsonX2('http://fbcs101.fbox360.com/api/v2/dmon/value/get?boxNo=338221114635', $post_data, "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg2QzQ2RTIxQTc0MTUxNTFCOTQ0MTY4MzhEMERGODU1OTZENkM2RTgiLCJ0eXAiOiJhdCtqd3QiLCJ4NXQiOiJoc1J1SWFkQlVWRzVSQmFEalEzNFZaYld4dWcifQ.eyJuYmYiOjE2NTM0MDI0ODEsImV4cCI6MTY1MzQwOTY4MSwiaXNzIjoiaHR0cHM6Ly9hY2NvdW50LmZsZXhlbS5jb20vY29yZSIsImF1ZCI6Imlkc3ZyMyIsImNsaWVudF9pZCI6IjA2YmQ3OGJhNDk4MzQwMWRhOTVjNzY2NTZiMTAxNDU4Iiwic3ViIjoiYWJjMjZhOTMtNGEzNi00MjNhLWE5NmQtNjM5MGEyYzNiMzVlIiwic2NvcGUiOlsiZmJveCJdfQ.gwJtBaApth4LAV0JDJlz2k-XPN7_pSMjR1X1w4ly99bx6KbOmWmySu9cjrBBSFiida5oF7NqFJCdymVPHyu83KUUA2cKES0uGrQ6YLJYAp5qIEkJ44AJZH_KOukyO2sGENpvMP1odv7UOfuQmhZkreOWzXSTkaokjhBCvSmBKSs1d5LGjuJZDjQU00qBhkn3RevHSG0gcp_IXGF9mvb26p3uVcaUq2X9lwbgOXzUHAtq0tlvluQN_PZFMyzUphwcri6Dbk6_lqyAK94Dhm64CAbHPPhTrknuT95Wr5grrnPNqf__FHcr7fWqAmjAkAaM_M9Ja5EYXKtGKIOWKXjnOQ");
+        $res = send_post_jsonX2('http://fbcs101.fbox360.com/api/v2/dmon/value/get?boxNo=338221114635', $post_data, (new AccessToken)->find(1));
+        //$res = send_post_jsonX2('http://fbcs101.fbox360.com/api/v2/dmon/value/get?boxNo=338221114635', $post_data, "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg2QzQ2RTIxQTc0MTUxNTFCOTQ0MTY4MzhEMERGODU1OTZENkM2RTgiLCJ0eXAiOiJhdCtqd3QiLCJ4NXQiOiJoc1J1SWFkQlVWRzVSQmFEalEzNFZaYld4dWcifQ.eyJuYmYiOjE2NTM0MDI0ODEsImV4cCI6MTY1MzQwOTY4MSwiaXNzIjoiaHR0cHM6Ly9hY2NvdW50LmZsZXhlbS5jb20vY29yZSIsImF1ZCI6Imlkc3ZyMyIsImNsaWVudF9pZCI6IjA2YmQ3OGJhNDk4MzQwMWRhOTVjNzY2NTZiMTAxNDU4Iiwic3ViIjoiYWJjMjZhOTMtNGEzNi00MjNhLWE5NmQtNjM5MGEyYzNiMzVlIiwic2NvcGUiOlsiZmJveCJdfQ.gwJtBaApth4LAV0JDJlz2k-XPN7_pSMjR1X1w4ly99bx6KbOmWmySu9cjrBBSFiida5oF7NqFJCdymVPHyu83KUUA2cKES0uGrQ6YLJYAp5qIEkJ44AJZH_KOukyO2sGENpvMP1odv7UOfuQmhZkreOWzXSTkaokjhBCvSmBKSs1d5LGjuJZDjQU00qBhkn3RevHSG0gcp_IXGF9mvb26p3uVcaUq2X9lwbgOXzUHAtq0tlvluQN_PZFMyzUphwcri6Dbk6_lqyAK94Dhm64CAbHPPhTrknuT95Wr5grrnPNqf__FHcr7fWqAmjAkAaM_M9Ja5EYXKtGKIOWKXjnOQ");
+        $num_floor = json_decode($res,true)['value'];
         dump($res);
-        Log::write('getCurrentFloor rsp: '.$res);
+        Log::write('getCurrentFloor rsp: '.$num_floor);
+        return $num_floor;
     }
       
 

@@ -1,18 +1,98 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-cn">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-  <title>WeUI</title>
+  <title>JADGE佳琪</title>
   <!-- 引入 WeUI CDN 链接 -->
   <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.3.0/weui.min.css" />
-  <!-- <link rel="stylesheet" href="./iconFont/iconfont.css" /> -->
+  <link rel="stylesheet" href="./iconFont/iconfont.css" />
   <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 
   <!DOCTYPE html>
-  <html lang="en">
 
+<style>
+
+  .breathe-down-div {
+    /*width: 100px;*/
+    /*height: 100px;*/
+    /*border: 1px solid #2b92d4;*/
+    /*border-radius: 50%;*/
+    /*text-align: center;*/
+    cursor: pointer;
+    /*margin:150px auto;*/
+    /*box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);*/
+    /*overflow: hidden;*/
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-name: breathe-down;
+    -webkit-animation-duration: 2000ms;
+    -webkit-animation-iteration-count: infinite;
+    /*-webkit-animation-direction: alternate;*/
+  }
+
+  .breathe-up-div {
+    cursor: pointer;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-name: breathe-up;
+    -webkit-animation-duration: 2000ms;
+    -webkit-animation-iteration-count: infinite;
+  }
+
+  @-webkit-keyframes breathe-down {
+    0% {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+
+    15% {
+      opacity: .9;
+    }
+
+    50% {
+      opacity: 1;
+    }
+
+    85% {
+      opacity: .9;
+    }
+
+    100% {
+      opacity: 0;
+      transform: translateY(10px);
+      /*border: 1px solid rgba(59, 235, 235, 0.7);*/
+      /*box-shadow: 0 1px 30px #0093df, 0 1px 20px #0093df inset;*/
+    }
+  }
+
+  @-webkit-keyframes breathe-up {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    15% {
+      opacity: .9;
+    }
+
+    50% {
+      opacity: 1;
+    }
+
+    85% {
+      opacity: .9;
+    }
+
+    100% {
+      opacity: 0;
+      transform: translateY(-10px);
+      /*border: 1px solid rgba(59, 235, 235, 0.7);*/
+      /*box-shadow: 0 1px 30px #0093df, 0 1px 20px #0093df inset;*/
+    }
+  }
+
+
+</style>
   <style>
     div.mydiv {
 
@@ -48,6 +128,7 @@
                 <div class="weui-flex">
                     <div class="weui-flex__item"><div class="placeholder">weui</div></div>
                     <div class="weui-flex__item"><div class="placeholder">weui</div></div>
+                    <div class="weui-flex__item"><div class="placeholder">weui</div></div>
                 </div>
                 <div class="weui-flex">
                     <div class="weui-cell__bd">
@@ -70,8 +151,21 @@
 
       <div class="mydiv">
 
-        <!-- <i class="iconfont">&#xe696;</i> -->
-        <div id="elevatorPosition" style="font-size: 58px;font-weight: bold;">...</div>
+
+        <div class="weui-flex" style="color: red">
+          <div class="weui-flex__item" style="margin-top: 12px" >
+            <i class="iconfont" style="font-size: 38px;font-weight: bold;float:right; vertical-align: middle;">&#xe90c;</i>
+          </div>
+          <div class="weui-flex__item">
+            <div >
+            <h1  id="elevatorPosition" style="font-size: 58px;font-weight: bold;" class="weui-form__title">...</h1>
+          </div></div>
+          <div class="weui-flex__item " style="margin-top: 12px">
+            <i id="elevatorStatus" class="iconfont" style="font-size: 38px;font-weight: bold; float: left; vertical-align: middle;" >&#xe610;</i>
+          </div>
+        </div>
+
+
         <div class="weui-form__tips-area">
           <p class="weui-form__tips">
             电梯当前位置
@@ -101,7 +195,8 @@
         <a role="button" disabled aria-disabled="true" class="weui-btn weui-btn_primary weui-btn_disabled"
           href="javascript:" id="showTooltips1">呼叫</a>
       </div>
-
+<!--      执行-->
+      <div id="executeForm">
       <div class="weui-form__control-area">
         <div class="weui-cells__group weui-cells__group_form">
           <div class="weui-cells__title">电梯执行</div>  
@@ -123,19 +218,20 @@
                   表单页提示，居中对齐
                 </p>
               </div> -->
-      <div class="weui-form__opr-area">
+      <div class="weui-form__opr-area" style="margin-bottom:0">
         <a role="button" disabled aria-disabled="true" class="weui-btn weui-btn_primary weui-btn_disabled"
           href="javascript:" id="showTooltips2">执行</a>
+      </div>
       </div>
       <!-- <div class="weui-form__tips-area">
                 <p class="weui-form__tips">
                   表单页提示，居中对齐
                 </p>
               </div> -->
-      <div class="weui-form__extra-area">
+      <div class="weui-form__extra-area" style="margin-top: 96px">
         <div class="weui-footer">
           <p class="weui-footer__links">
-            <a href="javascript:" class="weui-footer__link">底部链接文本</a>
+            <a href="tel:15858376915" class="weui-footer__link">联系我们</a>
           </p>
           <p class="weui-footer__text">Copyright © 2022 Pure Imagination AI解决方案 × 佳琪科技</p>
         </div>
@@ -178,7 +274,7 @@
       var $input1 = $('#js_input1');
       var $input2 = $('#js_input2');
       $input1.on('input', function () {
-        if ($input1.val() != '') {
+        if ($input1.val() != ''&& isElevatorOnline) {
           $('#showTooltips1').removeClass('weui-btn_disabled');
           $('#showTooltips1').attr('aria-disabled', 'false');
           $('#showTooltips1').removeAttr('disabled');
@@ -190,7 +286,7 @@
         }
       });
       $input2.on('input', function () {
-        if ($input2.val() != '') {
+        if ($input2.val() != ''&& isElevatorOnline) {
           $('#showTooltips2').removeClass('weui-btn_disabled');
           $('#showTooltips2').attr('aria-disabled', 'false');
           $('#showTooltips2').removeAttr('disabled');
@@ -218,6 +314,7 @@
               dataType: "json",
               data: JSON.stringify({
                 callFloor: callFloor,
+                isExecute: false
           }),
         }).done(function (res) {
           if (res && res.data !== undefined) {
@@ -236,11 +333,38 @@
 
       $('#showTooltips2').on('click', function () {
         if ($(this).hasClass('weui-btn_disabled')) return;
-        
-        
+
+
+        $('#showTooltips2').addClass('weui-btn_disabled');
+        $('#showTooltips2').addClass('weui-btn_disabled');
+        $('#showTooltips2').attr('aria-disabled', 'true');
+        $('#showTooltips2').attr('disabled');
+        set1($input2.val())
+        function set1(callFloor) {
+          $.ajax("/api/elevator_call", {
+            method: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify({
+              callFloor: callFloor,
+              isExecute: true
+            }),
+          }).done(function (res) {
+            if (res && res.data !== undefined) {
+              //$(".count-number").html(res.data);
+              $('#showTooltips2').removeClass('weui-btn_disabled');
+              $('#showTooltips2').attr('aria-disabled', 'false');
+              $('#showTooltips2').removeAttr('disabled');
+              ToastCallSuccess()
+            }
+          });
+        }
+        ToastCalling();
+
+
        
       });
-
+      //Toast请求发送
       function ToastCalling(){
         $('.page.cell').removeClass('slideIn');
 
@@ -279,6 +403,7 @@
 
 </body>
 <script>
+  var isElevatorOnline =false
   getFloor()
   function getFloor() {
     $.ajax("/api/get_current_floor", {
@@ -287,15 +412,37 @@
       console.log(res)
       if (res && res.data !== undefined) {
         $("#elevatorPosition").html(res.data);
+        res.code == -2 ? isElevatorOnline = false:isElevatorOnline = true
+        if(res.status==0){
+          $("#elevatorStatus").html('&#xe611;').removeClass('breathe-up-div','breathe-down-div');
+        }else if(res.status==1){
+          $("#elevatorStatus").html('&#xe609;').removeClass('breathe-down-div').addClass('breathe-up-div');
+        }else if (res.status==-1){
+          $("#elevatorStatus").html('&#xe60a;').removeClass('breathe-up-div').addClass('breathe-down-div');
+        }else {
+          $("#elevatorStatus").html('&#xe610;').removeClass('breathe-up-div','breathe-down-div');
+        }
       }
     });
   }
 
-
-setInterval(function () { 
-    getFloor()
+setInterval(function () {
+     getFloor()
   }, 5000);
 
+function getQueryVariable(variable)
+{
+  var query = window.location.search.substring(1);
+  var vars = query.split("&");
+  for (var i=0;i<vars.length;i++) {
+    var pair = vars[i].split("=");
+    if(pair[0] == variable){return pair[1];}
+  }
+  return(false);
+}
+if(getQueryVariable("admin")!=1){
+  $("#executeForm").attr("style","display:none;");
+}
 </script>
 
 </html>

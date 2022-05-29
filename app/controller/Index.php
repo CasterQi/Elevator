@@ -133,7 +133,7 @@ class Index
             $accessToken = new AccessToken;
             AccessToken::destroy(1);
             $accessToken->create(
-                ["main" => $realAccessToken, 'id' => 1],
+                ["main" => $realAccessToken, 'id' => 1]
             );
             Log::write('accessToken rsp: '.$tokenData);
             $res = [
@@ -161,13 +161,14 @@ class Index
         
         //dump($this->globalToken);
         $post_data = json_encode(array(
-            "names" => ["左笼当前楼层"],
-            "groupnames" => ["左笼"],
+            "names" => ["左笼当前楼层","左笼上行","左笼下行"],
+            "groupnames" => ["左笼","左笼","左笼"],
             "timeOut" => null
         ));
         //$res = send_post_jsonX2('http://fbcs101.fbox360.com/api/v2/dmon/value/get?boxNo=338221114635', $post_data, (new AccessToken)->find(1));
         $res = send_post_jsonX2('http://fbcs101.fbox360.com/api/v2/dmon/value/get?boxNo=338221114635', $post_data, $this->globalToken);
         //$res = send_post_jsonX2('http://fbcs101.fbox360.com/api/v2/dmon/value/get?boxNo=338221114635', $post_data, "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg2QzQ2RTIxQTc0MTUxNTFCOTQ0MTY4MzhEMERGODU1OTZENkM2RTgiLCJ0eXAiOiJhdCtqd3QiLCJ4NXQiOiJoc1J1SWFkQlVWRzVSQmFEalEzNFZaYld4dWcifQ.eyJuYmYiOjE2NTM0NDYzMDcsImV4cCI6MTY1MzQ1MzUwNywiaXNzIjoiaHR0cHM6Ly9hY2NvdW50LmZsZXhlbS5jb20vY29yZSIsImF1ZCI6Imlkc3ZyMyIsImNsaWVudF9pZCI6IjA2YmQ3OGJhNDk4MzQwMWRhOTVjNzY2NTZiMTAxNDU4Iiwic3ViIjoiYWJjMjZhOTMtNGEzNi00MjNhLWE5NmQtNjM5MGEyYzNiMzVlIiwic2NvcGUiOlsiZmJveCJdfQ.rIicgFEcEOib6M7NKN99KowBcNikD0pFWrSRE3Qo47Vx2bFGn5mBgWNdg-D0PY4cQAmfiZkZVbrtBYa2jTCt_OQn9ZY4SW4qP5BzS6ODHxrkRAD2hTjy4coKCn-jjGXoj6aRS61h5VMjPTCgbUiHBu92TUm-4eNNas6XLYZ_wAq3r6aoab2HH3q9o6v9tT4aDbyYBiQEeYj0UbldzfHRm3kr9euLNal7rEPZgpjdLmF0Dlfz0mMcvVLc2XSziGOiLdbxq2VdrLIZiBOxB-apMBP4iEILizcA_MsWvT39cmnk0aaMONC8oIA-qipXrfqJwU6mR1c6_Q_blOyHnMenYg");
+
         list($httpCode , $resContent) = $res;
         if($httpCode == 401){
             if($this->globalToken != ''&&$this->globalToken != null){
@@ -180,7 +181,22 @@ class Index
             ];
             return json($restojs);
         }
-        $num_floor = json_decode(substr($resContent, 1, -1),true)['value'];
+
+
+        list($resFloor , $resUp , $resDown) = json_decode($resContent,true);
+//        substr($resContent, 1, -1)
+
+        $num_floor = $resFloor['value'];
+        $statusIsUp = $resUp['value'];
+        $statusIsDown = $resDown['value'];
+        if($statusIsUp == 1){
+            $elevatorStatus = 1;
+        }else if($statusIsDown == 1){
+            $elevatorStatus = -1;
+        }else{
+            $elevatorStatus = 0;
+        }
+
         //dump($res);
         if($num_floor == null){
             Log::write('getCurrentFloor rsp: '.substr($resContent, 1, -1));
@@ -189,20 +205,21 @@ class Index
                 "data" =>  '电梯离线'
             ];
         }else{
-            Log::write('getCurrentFloor rsp: '.$httpCode.' '.$num_floor);
+            Log::write('getCurrentFloor rsp: '.$httpCode.'floor='.$num_floor.'status='.$elevatorStatus);
             $restojs = [
                 "code" => 0,
-                "data" =>  $num_floor
+                "data" =>  $num_floor,
+                "status" => $elevatorStatus
             ];
         }
         return json($restojs);
     }
 
-    public function elevatorCall($callFloor){
+    public function elevatorCall($callFloor,$isExecute){
         if($this->globalToken == ''){
             $this->globalToken = (new AccessToken)->find(1)["main"];
         }
-        $post_data_start = json_encode(array(
+        $post_data_call = json_encode(array(
             "name" => '左呼叫层'.$callFloor,
             "groupname" => "左笼",
             "value" => 1,
@@ -210,34 +227,43 @@ class Index
             
         ));
 
-        $post_data_finsh = json_encode(array(
-            "name" => '左呼叫层'.$callFloor,
+        $post_data_execute = json_encode(array(
+            "name" => '左目标层'.$callFloor,
             "groupname" => "左笼",
             "value" => 1,
             "type" => 1,
         ));
 
-
-        list($httpCode_start , $resContent_start) = send_post_jsonX2('http://fbcs101.fbox360.com/api/v2/dmon/value?boxNo=338221114635', $post_data_start, $this->globalToken);
-        list($httpCode_finsh , $resContent_finsh) = send_post_jsonX2('http://fbcs101.fbox360.com/api/v2/dmon/value?boxNo=338221114635', $post_data_finsh, $this->globalToken);
+        if($isExecute){
+            //execute
+            list($httpCode , $resContent) = send_post_jsonX2('http://fbcs101.fbox360.com/api/v2/dmon/value?boxNo=338221114635', $post_data_execute, $this->globalToken);
+        }else{
+            //call
+            list($httpCode , $resContent) = send_post_jsonX2('http://fbcs101.fbox360.com/api/v2/dmon/value?boxNo=338221114635', $post_data_call, $this->globalToken);
+        }
+        //list($httpCode_finsh , $resContent_finsh) = send_post_jsonX2('http://fbcs101.fbox360.com/api/v2/dmon/value?boxNo=338221114635', $post_data_finsh, $this->globalToken);
         
-        Log::write('elevatorCall Start->Finsh rsp: '.$httpCode_start.'->'.$httpCode_finsh.' '.$callFloor.$post_data_start);
-        if($httpCode_start == 200 && $httpCode_finsh ==200){
+        Log::write(($isExecute ? 'elevatorExecute' : 'elevatorCall').'  rsp: '.$httpCode.' '.$callFloor.$post_data_call);
+        if($httpCode == 200){
             $restojs = [
                 "code" => 0,
                 "data" =>  'success'
             ];
-            return json($restojs);
         }else{
             $restojs = [
                 "code" => -1,
-                "data" =>  $resContent_start.'\n'.$resContent_finsh
+                "data" =>  $resContent
             ];
-            Log::write('[failed] elevatorCall Start->Finsh rsp: '.$httpCode_start.'->'.$httpCode_finsh.' '.$callFloor.'\n'.$resContent_start.'\n->\n'.$resContent_finsh);
+            Log::error(($isExecute ? 'elevatorExecute' : 'elevatorCall').'  rsp: '.$httpCode.' '.$callFloor.'\n'.$resContent);
 
-            return json($restojs);
-        }
+        }return json($restojs);
     }
+
+
+    //admin=1
+
+
+
       
 
 }

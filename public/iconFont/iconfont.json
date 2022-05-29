@@ -1,0 +1,44 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "3640198",
+      "name": "停止上报",
+      "font_class": "tingzhishangbao",
+      "unicode": "e610",
+      "unicode_decimal": 58896
+    },
+    {
+      "icon_id": "4762915",
+      "name": "电梯",
+      "font_class": "dianti",
+      "unicode": "e90c",
+      "unicode_decimal": 59660
+    },
+    {
+      "icon_id": "4955291",
+      "name": "停止",
+      "font_class": "tingzhi",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "8017119",
+      "name": "图标_基药-向上",
+      "font_class": "tubiao_jiyao-xiangshang",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    },
+    {
+      "icon_id": "8017120",
+      "name": "图标_基药-向下",
+      "font_class": "tubiao_jiyao-xiangxia",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    }
+  ]
+}

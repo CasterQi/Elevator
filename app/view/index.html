@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="zh-CN">
 
 <head>
   <meta charset="UTF-8">
@@ -145,8 +145,8 @@
   <div class="page">
     <div class="weui-form">
       <div class="weui-form__text-area">
-        <h2 class="weui-form__title">JADGE</h2>
-        <div class="weui-form__desc" style="margin-top: 0;">佳琪</div>
+<!--        <h2 class="weui-form__title">JADGE</h2>-->
+<!--        <div class="weui-form__desc" style="margin-top: 0;">佳琪</div>-->
       </div>
 
       <div class="mydiv">
@@ -165,24 +165,28 @@
           </div>
         </div>
 
-
-        <div class="weui-form__tips-area">
-          <p class="weui-form__tips">
-            电梯当前位置
-          </p>
+        <div class="weui-form__text-area">
+          <!--        <h2 class="weui-form__title">JADGE</h2>-->
+                  <div class="weui-form__desc">电梯当前楼层</div>
         </div>
-      </div>
+<!--        <div class="weui-form__tips-area">-->
+<!--          <p class="weui-form__tips">-->
+<!--            电梯当前位置-->
+<!--          </p>-->
+<!--        </div>-->
+<!--      </div>-->
 
       <div class="weui-form__control-area">
         <div class="weui-cells__group weui-cells__group_form">
-          <div class="weui-cells__title">楼层呼叫</div>
+<!--          楼层呼叫-->
+          <div class="weui-cells__title"></div>
           <div class="weui-cells">
             <label for="js_input1" class="weui-cell weui-cell_active">
-              <div class="weui-cell__hd"><span class="weui-label">当前楼层</span>
+              <div class="weui-cell__hd"><span class="weui-label" style="max-width: 6em">本人所在楼层</span>
                 <div class="weui-cell__desc"></div>
               </div>
               <div class="weui-cell__bd">
-                <input id="js_input1" class="weui-input" placeholder="本人所在楼层" type="number" pattern="[0-9]*" />
+                <input id="js_input1" class="weui-input" placeholder="点击输入" type="number" pattern="[0-9]*" />
               </div>
             </label>
 
@@ -193,20 +197,21 @@
       </div>
       <div class="weui-form__opr-area" style="margin-bottom:0">
         <a role="button" disabled aria-disabled="true" class="weui-btn weui-btn_primary weui-btn_disabled"
-          href="javascript:" id="showTooltips1">呼叫</a>
+          href="javascript:" id="showTooltips1">确认</a>
       </div>
 <!--      执行-->
       <div id="executeForm">
       <div class="weui-form__control-area">
         <div class="weui-cells__group weui-cells__group_form">
-          <div class="weui-cells__title">电梯执行</div>  
+<!--          电梯执行-->
+          <div class="weui-cells__title"></div>
           <div class="weui-cells"> 
             <label for="js_input2" class="weui-cell weui-cell_active">
-              <div class="weui-cell__hd"><span class="weui-label">目标楼层</span>
+              <div class="weui-cell__hd"><span class="weui-label" style="max-width: 6em">期望到达楼层</span>
                 <div class="weui-cell__desc"></div>
               </div>
               <div class="weui-cell__bd">
-                <input id="js_input2" class="weui-input" placeholder="期望到达楼层" type="number" pattern="[0-9]*" />
+                <input id="js_input2" class="weui-input" placeholder="点击输入" type="number" pattern="[0-9]*" />
               </div>
             </label>
 
@@ -220,7 +225,7 @@
               </div> -->
       <div class="weui-form__opr-area" style="margin-bottom:0">
         <a role="button" disabled aria-disabled="true" class="weui-btn weui-btn_primary weui-btn_disabled"
-          href="javascript:" id="showTooltips2">执行</a>
+          href="javascript:" id="showTooltips2">确认</a>
       </div>
       </div>
       <!-- <div class="weui-form__tips-area">
@@ -267,36 +272,39 @@
 
   </div>
   <script type="text/javascript">
-    $(function () {
+
       var $toast = $('#js_toast');
       var $toast_success = $('#js_toast_success');
       var $toast_calling = $('#loadingToast');
       var $input1 = $('#js_input1');
       var $input2 = $('#js_input2');
-      $input1.on('input', function () {
-        if ($input1.val() != ''&& isElevatorOnline) {
+
+    const input1_func = function () {
+      if ($input1.val() != ''&& isElevatorOnline) {
           $('#showTooltips1').removeClass('weui-btn_disabled');
           $('#showTooltips1').attr('aria-disabled', 'false');
           $('#showTooltips1').removeAttr('disabled');
-        } else {
+      } else {
           $('#showTooltips1').addClass('weui-btn_disabled');
           $('#showTooltips1').addClass('weui-btn_disabled');
           $('#showTooltips1').attr('aria-disabled', 'true');
           $('#showTooltips1').attr('disabled');
-        }
-      });
-      $input2.on('input', function () {
-        if ($input2.val() != ''&& isElevatorOnline) {
-          $('#showTooltips2').removeClass('weui-btn_disabled');
-          $('#showTooltips2').attr('aria-disabled', 'false');
-          $('#showTooltips2').removeAttr('disabled');
-        } else {
-          $('#showTooltips2').addClass('weui-btn_disabled');
-          $('#showTooltips2').addClass('weui-btn_disabled');
-          $('#showTooltips2').attr('aria-disabled', 'true');
-          $('#showTooltips2').attr('disabled');
-        }
-      });
+      }
+      }
+      $input1.on('input',  input1_func );
+      const input2_func = function () {
+          if ($input2.val() != ''&& isElevatorOnline) {
+              $('#showTooltips2').removeClass('weui-btn_disabled');
+              $('#showTooltips2').attr('aria-disabled', 'false');
+              $('#showTooltips2').removeAttr('disabled');
+          } else {
+              $('#showTooltips2').addClass('weui-btn_disabled');
+              $('#showTooltips2').addClass('weui-btn_disabled');
+              $('#showTooltips2').attr('aria-disabled', 'true');
+              $('#showTooltips2').attr('disabled');
+          }
+      }
+      $input2.on('input',input2_func );
 
       //呼叫
       $('#showTooltips1').on('click', function () {
@@ -319,9 +327,10 @@
         }).done(function (res) {
           if (res && res.data !== undefined) {
             //$(".count-number").html(res.data);
-            $('#showTooltips1').removeClass('weui-btn_disabled');
-            $('#showTooltips1').attr('aria-disabled', 'false');
-            $('#showTooltips1').removeAttr('disabled');
+            // $('#showTooltips1').removeClass('weui-btn_disabled');
+            // $('#showTooltips1').attr('aria-disabled', 'false');
+            // $('#showTooltips1').removeAttr('disabled');
+            $input1.val('')
             ToastCallSuccess()
           }
         });
@@ -352,9 +361,10 @@
           }).done(function (res) {
             if (res && res.data !== undefined) {
               //$(".count-number").html(res.data);
-              $('#showTooltips2').removeClass('weui-btn_disabled');
-              $('#showTooltips2').attr('aria-disabled', 'false');
-              $('#showTooltips2').removeAttr('disabled');
+              // $('#showTooltips2').removeClass('weui-btn_disabled');
+              // $('#showTooltips2').attr('aria-disabled', 'false');
+              // $('#showTooltips2').removeAttr('disabled');
+              $input2.val('')
               ToastCallSuccess()
             }
           });
@@ -389,14 +399,14 @@
       //$('.weui-cell').on('click', function(){
       //  $(this).find('input').trigger('focus');
       //});
-    });
+
   </script>
 
 
 
 
 
-  <div class="page">
+<!--  <div class="page">-->
 
 
   </div>
@@ -406,6 +416,8 @@
   var isElevatorOnline =false
   getFloor()
   function getFloor() {
+      input1_func()
+      input2_func()
     $.ajax("/api/get_current_floor", {
       method: "get",
     }).done(function (res) {
@@ -414,13 +426,13 @@
         $("#elevatorPosition").html(res.data);
         res.code == -2 ? isElevatorOnline = false:isElevatorOnline = true
         if(res.status==0){
-          $("#elevatorStatus").html('&#xe611;').removeClass('breathe-up-div','breathe-down-div');
+          $("#elevatorStatus").html('&#xe611;').attr('class','iconfont');
         }else if(res.status==1){
           $("#elevatorStatus").html('&#xe609;').removeClass('breathe-down-div').addClass('breathe-up-div');
         }else if (res.status==-1){
           $("#elevatorStatus").html('&#xe60a;').removeClass('breathe-up-div').addClass('breathe-down-div');
         }else {
-          $("#elevatorStatus").html('&#xe610;').removeClass('breathe-up-div','breathe-down-div');
+          $("#elevatorStatus").html('&#xe610;').attr('class','iconfont');
         }
       }
     });

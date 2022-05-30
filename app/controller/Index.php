@@ -177,10 +177,14 @@ class Index
             Log::write('getCurrentFloor rsp: '.$httpCode.' '.$resContent.'Token='.$this->globalToken);
             $restojs = [
                 "code" => -1,
-                "data" =>  'ErrCode:'.$httpCode
+                "data" =>  $httpCode.':等待授权'
             ];
             return json($restojs);
         }
+
+
+
+
 
 
         list($resFloor , $resUp , $resDown) = json_decode($resContent,true);

@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+  <title>JADGE佳琪</title>
+  <!-- 引入 WeUI CDN 链接 -->
+  <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.3.0/weui.min.css" />
+  <link rel="stylesheet" href="./iconFont/iconfont.css" />
+  <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://res.wx.qq.com/t/wx_fed/cdn_libs/res/weui/1.2.8/weui.min.js"></script>
+
+  <!DOCTYPE html>
+
+<style>
+
+  .breathe-down-div {
+    /*width: 100px;*/
+    /*height: 100px;*/
+    /*border: 1px solid #2b92d4;*/
+    /*border-radius: 50%;*/
+    /*text-align: center;*/
+    cursor: pointer;
+    /*margin:150px auto;*/
+    /*box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);*/
+    /*overflow: hidden;*/
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-name: breathe-down;
+    -webkit-animation-duration: 2000ms;
+    -webkit-animation-iteration-count: infinite;
+    /*-webkit-animation-direction: alternate;*/
+  }
+
+  .breathe-up-div {
+    cursor: pointer;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-name: breathe-up;
+    -webkit-animation-duration: 2000ms;
+    -webkit-animation-iteration-count: infinite;
+  }
+
+  @-webkit-keyframes breathe-down {
+    0% {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+
+    15% {
+      opacity: .9;
+    }
+
+    50% {
+      opacity: 1;
+    }
+
+    85% {
+      opacity: .9;
+    }
+
+    100% {
+      opacity: 0;
+      transform: translateY(10px);
+      /*border: 1px solid rgba(59, 235, 235, 0.7);*/
+      /*box-shadow: 0 1px 30px #0093df, 0 1px 20px #0093df inset;*/
+    }
+  }
+
+  @-webkit-keyframes breathe-up {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    15% {
+      opacity: .9;
+    }
+
+    50% {
+      opacity: 1;
+    }
+
+    85% {
+      opacity: .9;
+    }
+
+    100% {
+      opacity: 0;
+      transform: translateY(-10px);
+      /*border: 1px solid rgba(59, 235, 235, 0.7);*/
+      /*box-shadow: 0 1px 30px #0093df, 0 1px 20px #0093df inset;*/
+    }
+  }
+
+
+</style>
+  <style>
+    div.mydiv {
+
+
+      /*此元素会作为一个表格单元格显示
+            （类似 <td> 和 <th>）*/
+      display: table-cell;
+      /*垂直居中 */
+      vertical-align: middle;
+      /*水平居中*/
+      text-align: center;
+    }
+  </style>
+
+
+
+</head>
+
+<body>
+  <!-- 使用 -->
+  <!-- <a href="javascript:;" class="weui-btn weui-btn_primary">绿色按钮</a> -->
+
+
+  <!-- <div class="page">
+            <div class="page__hd">
+                <h1 class="page__title">Flex</h1>
+                <p class="page__desc">Flex布局</p>
+            </div>
+            <div class="page__bd page__bd_spacing">
+                <div class="weui-flex">
+                    <div class="weui-flex__item"><div class="placeholder">weui</div></div>
+                </div>
+                <div class="weui-flex">
+                    <div class="weui-flex__item"><div class="placeholder">weui</div></div>
+                    <div class="weui-flex__item"><div class="placeholder">weui</div></div>
+                    <div class="weui-flex__item"><div class="placeholder">weui</div></div>
+                </div>
+                <div class="weui-flex">
+                    <div class="weui-cell__bd">
+                        <input id="js_input3" class="weui-input" placeholder="填写绑定的电话号码" type="number" pattern="[0-9]*" />
+                    </div>
+                    <div class="weui-flex__item"><div class="placeholder">weui</div></div>
+                    <div class="weui-cell__bd">
+                        <input id="js_input3" class="weui-input" placeholder="填写绑定的电话号码" type="number" pattern="[0-9]*" />
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+  <div class="page">
+    <div class="weui-form">
+      <div class="weui-form__text-area">
+<!--        <h2 class="weui-form__title">JADGE</h2>-->
+<!--        <div class="weui-form__desc" style="margin-top: 0;">佳琪</div>-->
+      </div>
+
+      <div class="mydiv">
+
+
+        <div class="weui-flex" style="color: red">
+          <div class="weui-flex__item" style="margin-top: 12px" >
+            <i class="iconfont" style="font-size: 38px;font-weight: bold;float:right; vertical-align: middle;">&#xe90c;</i>
+          </div>
+          <div class="weui-flex__item">
+            <div >
+            <h1  id="elevatorPosition" style="font-size: 58px;font-weight: bold;" class="weui-form__title">...</h1>
+          </div></div>
+          <div class="weui-flex__item " style="margin-top: 12px">
+            <i id="elevatorStatus" class="iconfont" style="font-size: 38px;font-weight: bold; float: left; vertical-align: middle;" >&#xe610;</i>
+          </div>
+        </div>
+
+        <div class="weui-form__text-area">
+          <!--        <h2 class="weui-form__title">JADGE</h2>-->
+                  <div class="weui-form__desc">新增小程序码</div>
+        </div>
+<!--        <div class="weui-form__tips-area">-->
+<!--          <p class="weui-form__tips">-->
+<!--            电梯当前位置-->
+<!--          </p>-->
+<!--        </div>-->
+<!--      </div>-->
+
+      <div class="weui-form__control-area">
+        <div class="weui-cells__group weui-cells__group_form">
+<!--          楼层呼叫-->
+          <div class="weui-cells__title"></div>
+          <div class="weui-cells">
+            <label for="js_input" class="weui-cell weui-cell_active">
+              <div class="weui-cell__hd"><span class="weui-label" style="max-width: 6em">boxNo</span>
+                <div class="weui-cell__desc"></div>
+              </div>
+              <div class="weui-cell__bd">
+                <input id="js_input1x" class="weui-input" placeholder="fbox序列号" type="number" pattern="[0-9]*" />
+              </div>
+            </label>
+
+              <label for="js_input" class="weui-cell weui-cell_active">
+                  <div class="weui-cell__hd"><span class="weui-label" style="max-width: 6em">电梯名称</span>
+                      <div class="weui-cell__desc"></div>
+                  </div>
+                  <div class="weui-cell__bd">
+                      <input id="js_input2x" class="weui-input" placeholder="名称将在操作界面显示" type="text" pattern="[0-9]*" />
+                  </div>
+              </label>
+
+              <div id="showPicker" role="button" aria-haspopup="listbox" class="weui-cell weui-cell_active weui-cell_select weui-cell_select-after">
+                  <div class="weui-cell__hd"><label class="weui-label">有效时间</label></div>
+                  <div class="weui-cell__bd"><div id="showPickerDisplay" class="weui-select">一年</div></div>
+              </div>
+              <div id="showPicker2" role="button" aria-haspopup="listbox" class="weui-cell weui-cell_active weui-cell_select weui-cell_select-after">
+                  <div class="weui-cell__hd"><label class="weui-label">左右笼</label></div>
+                  <div class="weui-cell__bd"><div id="showPickerDisplay2" class="weui-select">左笼</div></div>
+              </div>
+              <label for="js_input" class="weui-cell weui-cell_active">
+                  <div class="weui-cell__hd"><span class="weui-label" style="max-width: 6em">默认楼层</span>
+                      <div class="weui-cell__desc"></div>
+                  </div>
+                  <div class="weui-cell__bd">
+                      <input id="js_input3x" class="weui-input" placeholder="可选，扫码时自动填入" type="text" pattern="[0-9]*" />
+                  </div>
+              </label>
+              <label for="js_input" class="weui-cell weui-cell_active">
+                  <div class="weui-cell__hd"><span class="weui-label" style="max-width: 6em">密码</span>
+                      <div class="weui-cell__desc"></div>
+                  </div>
+                  <div class="weui-cell__bd">
+                      <input id="js_input4x" class="weui-input" placeholder="" type="password" pattern="[0-9]*" />
+                  </div>
+              </label>
+          </div>
+        </div>
+      </div>
+      <div class="weui-form__opr-area" style="margin-bottom:0">
+        <a role="button" disabled aria-disabled="true" class="weui-btn weui-btn_primary weui-btn_disabled"
+          href="javascript:" id="showTooltips1">获取小程序码</a>
+      </div>
+
+          <div id="showHtml"></div>
+<!--      执行-->
+<!--      <div id="executeForm">-->
+<!--      <div class="weui-form__control-area">-->
+<!--        <div class="weui-cells__group weui-cells__group_form">-->
+<!--&lt;!&ndash;          电梯执行&ndash;&gt;-->
+<!--          <div class="weui-cells__title"></div>-->
+<!--          <div class="weui-cells"> -->
+<!--            <label for="js_input2" class="weui-cell weui-cell_active">-->
+<!--              <div class="weui-cell__hd"><span class="weui-label" style="max-width: 6em">期望到达楼层</span>-->
+<!--                <div class="weui-cell__desc"></div>-->
+<!--              </div>-->
+<!--              <div class="weui-cell__bd">-->
+<!--                <input id="js_input2" class="weui-input" placeholder="点击输入" type="number" pattern="[0-9]*" />-->
+<!--              </div>-->
+<!--            </label>-->
+
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+      <!-- <div class="weui-form__tips-area">
+                <p class="weui-form__tips">
+                  表单页提示，居中对齐
+                </p>
+              </div> -->
+<!--      <div class="weui-form__opr-area" style="margin-bottom:0">-->
+<!--        <a role="button" disabled aria-disabled="true" class="weui-btn weui-btn_primary weui-btn_disabled"-->
+<!--          href="javascript:" id="showTooltips2">确认</a>-->
+<!--      </div>-->
+      </div>
+      <!-- <div class="weui-form__tips-area">
+                <p class="weui-form__tips">
+                  表单页提示，居中对齐
+                </p>
+              </div> -->
+      <div class="weui-form__extra-area" style="margin-top: 96px">
+        <div class="weui-footer">
+          <p class="weui-footer__links">
+            <a href="tel:15858376915" class="weui-footer__link">联系我们</a>
+          </p>
+          <p class="weui-footer__text">Copyright © 2022 Pure Imagination AI解决方案 × 佳琪科技</p>
+        </div>
+      </div>
+    </div>
+    <div role="alert" id="js_toast" style="display: none;">
+      <div class="weui-mask_transparent"></div>
+      <div class="weui-toast">
+        <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+        <p class="weui-toast__content">请求发送</p>
+      </div>
+    </div>
+
+      <!-- loading toast -->
+      <div role="alert" id="loadingToast" style="display: none;">
+        <div class="weui-mask_transparent"></div>
+        <div class="weui-toast">
+            <span class="weui-primary-loading weui-icon_toast">
+              <span class="weui-primary-loading__dot"></span>
+            </span>
+            <p class="weui-toast__content">请求发送</p>
+        </div>
+      </div>
+
+
+    <div role="alert" id="js_toast_success" style="display: none;">
+      <div class="weui-mask_transparent"></div>
+      <div class="weui-toast">
+        <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+        <p class="weui-toast__content" id="toastSuccessVal">请求成功</p>
+      </div>
+    </div>
+
+<!--      style="background-image: url(./WeUI_files/icon_footer_link.png);"-->
+
+      <div style="display: none;" role="dialog" aria-labelledby="galleryImg" aria-hidden="true" aria-modal="true" class="weui-gallery" id="gallery">
+          <span id="galleryImg" alt="图片详情" role="img" class="weui-gallery__img" >
+              <img id="imgLable" src="">
+          </span>
+          <div class="weui-gallery__opr">
+              <a role="button" aria-label="删除" href="javascript:" class="weui-gallery__del">
+<!--                  <i class="weui-icon-delete weui-icon_gallery-delete"></i>-->
+                  关闭
+              </a>
+          </div>
+      </div>
+
+
+  </div>
+  <script type="text/javascript">
+
+
+
+
+      function showQRcode (imgURL){
+
+          //var imageType = xhr.getResponseHeader("Content-Type");
+          // var blob = new Blob([imgURL], { type: 'image/jpeg' });
+          // var imageUrl = (window.URL || window.webkitURL).createObjectURL(blob);
+          // console.log(imageUrl)
+          // $('#imgLable').attr("src", imgURL);
+
+
+          $gallery = $("#gallery");
+          $galleryImg = $("#galleryImg");
+          $gallery.attr('aria-hidden','false');
+          $gallery.fadeIn(200);
+          //$galleryImg.css('background-image',imageUrl)
+          setTimeout(function(){
+              $galleryImg.attr("tabindex", '-1').trigger('focus');
+          },300);
+      }
+
+      let data_boxNo;
+      let data_displayName;
+      let data_validDate = 0;
+      let data_direction = 'L';
+      let data_defaultFloor = '0';
+      $('#showPicker').on('click', function () {
+          weui.picker([{
+              label: '一年',
+              value: 0,
+              default:true
+          }, {
+              label: '两年',
+              value: 1
+          }, {
+              label: '三年',
+              value: 2
+          },{
+              label: '六个月',
+              //disabled: true,
+              value: 3
+          }, {
+              label: '三个月',
+              value: 4
+          },{
+              label: '一个月',
+              value: 5
+          }], {
+              onChange: function (result) {
+                  console.log(result);
+              },
+              onConfirm: function (result) {
+                  console.log(result);
+                  $('#showPickerDisplay').html(result[0].label)
+              },
+              title: '有效时间'
+          });
+      });
+
+
+      $('#showPicker2').on('click', function () {
+          weui.picker([{
+              label: '左笼',
+              value: 'L',
+              default:true
+          }, {
+              label: '右笼',
+              value: 'R'
+          }], {
+              onChange: function (result) {
+                  console.log(result);
+              },
+              onConfirm: function (result) {
+                  console.log(result);
+                  $('#showPickerDisplay2').html(result[0].label)
+              },
+              title: '左右笼'
+          });
+      });
+    //   var $toast = $('#js_toast');
+      var $toast_success = $('#js_toast_success');
+      var $toast_calling = $('#loadingToast');
+    //   var $input1 = $('#js_input1');
+    //   var $input2 = $('#js_input2');
+    //
+    // const input1_func = function () {
+    //   if ($input1.val() != ''&& isElevatorOnline) {
+    //       $('#showTooltips1').removeClass('weui-btn_disabled');
+    //       $('#showTooltips1').attr('aria-disabled', 'false');
+    //       $('#showTooltips1').removeAttr('disabled');
+    //   } else {
+    //       $('#showTooltips1').addClass('weui-btn_disabled');
+    //       $('#showTooltips1').addClass('weui-btn_disabled');
+    //       $('#showTooltips1').attr('aria-disabled', 'true');
+    //       $('#showTooltips1').attr('disabled');
+    //   }
+    //   }
+    //   $input1.on('input',  input1_func );
+    //   const input2_func = function () {
+    //       if ($input2.val() != ''&& isElevatorOnline) {
+    //           $('#showTooltips2').removeClass('weui-btn_disabled');
+    //           $('#showTooltips2').attr('aria-disabled', 'false');
+    //           $('#showTooltips2').removeAttr('disabled');
+    //       } else {
+    //           $('#showTooltips2').addClass('weui-btn_disabled');
+    //           $('#showTooltips2').addClass('weui-btn_disabled');
+    //           $('#showTooltips2').attr('aria-disabled', 'true');
+    //           $('#showTooltips2').attr('disabled');
+    //       }
+    //   }
+    //   $input2.on('input',input2_func );
+        const input1x = $("#js_input1x")
+        const input2x = $("#js_input2x")
+        const input3x = $("#js_input3x")
+        const input4x = $("#js_input4x")
+      function checkinputX(){
+                 if (input1x.val() != ''&&input2x.val() != ''&&input4x.val() != '') {
+                    $('#showTooltips1').removeClass('weui-btn_disabled');
+                   $('#showTooltips1').attr('aria-disabled', 'false');
+                   $('#showTooltips1').removeAttr('disabled');
+                 }else {
+                     $('#showTooltips1').addClass('weui-btn_disabled');
+                   $('#showTooltips1').attr('aria-disabled', 'true');
+                   $('#showTooltips1').attr('disabled');
+                 }
+      }
+      input1x.on('input',checkinputX)
+      input2x.on('input',checkinputX)
+      input3x.on('input',checkinputX)
+      input4x.on('input',checkinputX)
+
+
+      //呼叫
+      $('#showTooltips1').on('click', function () {
+        if ($(this).hasClass('weui-btn_disabled')) return;
+        
+        $('#showTooltips1').addClass('weui-btn_disabled');
+        $('#showTooltips1').attr('aria-disabled', 'true');
+        $('#showTooltips1').attr('disabled');
+          window.open('./api/getQRcode?data_boxNo='+$('#js_input1x').val()+'&data_displayName='+$('#js_input2x').val()+'&data_validDate='+data_validDate+'&data_direction='+data_direction+'&data_defaultFloor='+($('#js_input3x').val()?(+$('#js_input3x').val()):'')+'&passwd='+$('#js_input4x').val());
+          return;
+
+      $.ajax("/api/getQRcode", {
+          method: "POST",
+          contentType: "application/json; charset=utf-8",
+          dataType: "json",
+          data: JSON.stringify({
+              data_boxNo:$('#js_input1x').val(),
+              data_displayName:$('#js_input2x').val(),
+              data_validDate:data_validDate,
+              data_direction:data_direction,
+              data_defaultFloor:$('#js_input3x').val()
+
+          })
+        }).always((res,status,response)=>{
+          console.log(res)
+          console.log(status)
+          console.log(response)
+          //if (res!=''&&response.status==200&&response.getResponseHeader('Content-Type')=="application/json; charset=utf-8") {
+              console.log()
+              input1x.val('')
+              input2x.val('')
+              input3x.val('')
+          $("#showHtml").html(res)
+              ToastCallSuccess(JSON.stringify(res))
+              checkinputX()
+          //}else {
+          // const resBase64 = window.btoa(res.data)
+          // // var reader = new window.FileReader();
+          // // var blob = new Blob(res, { type: 'image/jpeg' })
+          // // reader.readAsDataURL(blob);
+          // // reader.onloadend = function () {
+          //     $("#imgLable").attr('src', "data:image/png;base64,"+resBase64);
+              //$("#imgLable").attr('data-uid', res.getResponseHeader('Content-Type').split(",")[1]);
+          //};
+              //showQRcode()
+          //}
+      })
+          checkinputX()
+        ToastCalling();
+      });
+
+      //执行
+
+      // $('#showTooltips2').on('click', function () {
+      //   if ($(this).hasClass('weui-btn_disabled')) return;
+      //   $('#showTooltips2').addClass('weui-btn_disabled');
+      //   $('#showTooltips2').attr('aria-disabled', 'true');
+      //   $('#showTooltips2').attr('disabled');
+      //   set1($input2.val())
+      //   function set1(callFloor) {
+      //     $.ajax("/api/elevator_call", {
+      //       method: "POST",
+      //       contentType: "application/json; charset=utf-8",
+      //       dataType: "json",
+      //       data: JSON.stringify({
+      //         callFloor: callFloor,
+      //         isExecute: true
+      //       }),
+      //     }).done(function (res) {
+      //       if (res && res.data !== undefined) {
+      //         //$(".count-number").html(res.data);
+      //         // $('#showTooltips2').removeClass('weui-btn_disabled');
+      //         // $('#showTooltips2').attr('aria-disabled', 'false');
+      //         // $('#showTooltips2').removeAttr('disabled');
+      //         $input2.val('')
+      //         ToastCallSuccess()
+      //       }
+      //     });
+      //   }
+      //   ToastCalling();
+      // });
+
+
+      //Toast请求发送
+      function ToastCalling(){
+        $('.page.cell').removeClass('slideIn');
+
+        $toast_calling.attr('aria-live', 'assertive');
+        $toast_calling.fadeIn(100);
+        setTimeout(function () {
+          $toast_calling.attr('aria-live', 'off');
+          $toast_calling.fadeOut(100);
+        }, 2000);
+      }
+
+      function ToastCallSuccess(text){
+          text = text?text:'success'
+          $('#toastSuccessVal').html(text)
+          $('.page.cell').removeClass('slideIn');
+          $toast_success.attr('aria-live', 'assertive');
+          $toast_success.fadeIn(100);
+          setTimeout(function () {
+            $toast_success.attr('aria-live', 'off');
+            $toast_success.fadeOut(100);
+          }, 5000);
+        }
+
+      //$('.weui-cell').on('click', function(){
+      //  $(this).find('input').trigger('focus');
+      //});
+
+  </script>
+
+
+
+
+
+<!--  <div class="page">-->
+
+
+<!--  </div>-->
+
+</body>
+<script>
+//  var isElevatorOnline =false
+//   getFloor()
+//   function getFloor() {
+//       input1_func()
+//       input2_func()
+//     $.ajax("/api/get_current_floor", {
+//       method: "get",
+//     }).done(function (res) {
+//       console.log(res)
+//       if (res && res.data !== undefined) {
+//         $("#elevatorPosition").html(res.data);
+//         res.code == -2 ? isElevatorOnline = false:isElevatorOnline = true
+//         if(res.status==0){
+//           $("#elevatorStatus").html('&#xe611;').attr('class','iconfont');
+//         }else if(res.status==1){
+//           $("#elevatorStatus").html('&#xe609;').removeClass('breathe-down-div').addClass('breathe-up-div');
+//         }else if (res.status==-1){
+//           $("#elevatorStatus").html('&#xe60a;').removeClass('breathe-up-div').addClass('breathe-down-div');
+//         }else {
+//           $("#elevatorStatus").html('&#xe610;').attr('class','iconfont');
+//         }
+//       }
+//     });
+//   }
+//
+// setInterval(function () {
+//      getFloor()
+//   }, 5000);
+
+// function getQueryVariable(variable)
+// {
+//   var query = window.location.search.substring(1);
+//   var vars = query.split("&");
+//   for (var i=0;i<vars.length;i++) {
+//     var pair = vars[i].split("=");
+//     if(pair[0] == variable){return pair[1];}
+//   }
+//   return(false);
+// }
+// if(getQueryVariable("admin")!=1){
+//   $("#executeForm").attr("style","display:none;");
+// }
+</script>
+
+</html>

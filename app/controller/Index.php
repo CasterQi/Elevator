@@ -11,6 +11,7 @@
 
 namespace app\controller;
 
+use app\model\Elevator;
 use Error;
 use Exception;
 use app\model\Counters;
@@ -154,19 +155,27 @@ class Index
     }
 
    
-    public function getCurrentFloor(){
+    public function getCurrentFloor($data_boxNo,$data_direction){
         if($this->globalToken == ''){
             $this->globalToken = (new AccessToken)->find(1)["main"];
         }
-        
+        $validTime = Elevator::where('boxNo', $data_boxNo)->value('validTime');
+        if(strtotime($validTime)-strtotime(date("Y-m-d H:i:s"))<0){
+            $restojs = [
+                "code" => -4,
+                "data" =>  '402:二维码已失效，请续费'
+            ];
+            return json($restojs);
+        }
         //dump($this->globalToken);
+        $LR=($data_direction=='L'?'左':'右');
         $post_data = json_encode(array(
-            "names" => ["左笼当前楼层","左笼上行","左笼下行"],
-            "groupnames" => ["左笼","左笼","左笼"],
+            "names" => [$LR."笼当前楼层",$LR."笼上行",$LR."笼下行"],
+            "groupnames" => [$LR."笼",$LR."笼",$LR."笼"],
             "timeOut" => null
         ));
         //$res = send_post_jsonX2('http://fbcs101.fbox360.com/api/v2/dmon/value/get?boxNo=338221114635', $post_data, (new AccessToken)->find(1));
-        $res = send_post_jsonX2('http://fbcs101.fbox360.com/api/v2/dmon/value/get?boxNo=338221114635', $post_data, $this->globalToken);
+        $res = send_post_jsonX2('http://fbcs101.fbox360.com/api/v2/dmon/value/get?boxNo='.$data_boxNo, $post_data, $this->globalToken);
         //$res = send_post_jsonX2('http://fbcs101.fbox360.com/api/v2/dmon/value/get?boxNo=338221114635', $post_data, "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg2QzQ2RTIxQTc0MTUxNTFCOTQ0MTY4MzhEMERGODU1OTZENkM2RTgiLCJ0eXAiOiJhdCtqd3QiLCJ4NXQiOiJoc1J1SWFkQlVWRzVSQmFEalEzNFZaYld4dWcifQ.eyJuYmYiOjE2NTM0NDYzMDcsImV4cCI6MTY1MzQ1MzUwNywiaXNzIjoiaHR0cHM6Ly9hY2NvdW50LmZsZXhlbS5jb20vY29yZSIsImF1ZCI6Imlkc3ZyMyIsImNsaWVudF9pZCI6IjA2YmQ3OGJhNDk4MzQwMWRhOTVjNzY2NTZiMTAxNDU4Iiwic3ViIjoiYWJjMjZhOTMtNGEzNi00MjNhLWE5NmQtNjM5MGEyYzNiMzVlIiwic2NvcGUiOlsiZmJveCJdfQ.rIicgFEcEOib6M7NKN99KowBcNikD0pFWrSRE3Qo47Vx2bFGn5mBgWNdg-D0PY4cQAmfiZkZVbrtBYa2jTCt_OQn9ZY4SW4qP5BzS6ODHxrkRAD2hTjy4coKCn-jjGXoj6aRS61h5VMjPTCgbUiHBu92TUm-4eNNas6XLYZ_wAq3r6aoab2HH3q9o6v9tT4aDbyYBiQEeYj0UbldzfHRm3kr9euLNal7rEPZgpjdLmF0Dlfz0mMcvVLc2XSziGOiLdbxq2VdrLIZiBOxB-apMBP4iEILizcA_MsWvT39cmnk0aaMONC8oIA-qipXrfqJwU6mR1c6_Q_blOyHnMenYg");
 
         list($httpCode , $resContent) = $res;
@@ -202,7 +211,7 @@ class Index
         }
 
         //dump($res);
-        if($num_floor == null){
+        if(empty($num_floor)){
             Log::write('getCurrentFloor rsp: '.substr($resContent, 1, -1));
             $restojs = [
                 "code" => -2,
@@ -219,31 +228,41 @@ class Index
         return json($restojs);
     }
 
-    public function elevatorCall($callFloor,$isExecute){
+    public function elevatorCall($callFloor,$isExecute,$data_boxNo,$data_direction){
         if($this->globalToken == ''){
             $this->globalToken = (new AccessToken)->find(1)["main"];
         }
+        $validTime = Elevator::where('boxNo', $data_boxNo)->value('validTime');
+        if(strtotime($validTime)-strtotime(date("Y-m-d H:i:s"))<0){
+            $restojs = [
+                "code" => -4,
+                "data" =>  '402:二维码已失效，请续费'
+            ];
+            return json($restojs);
+        }
+        $LR=($data_direction=='L'?'左':'右');
+
         $post_data_call = json_encode(array(
-            "name" => '左呼叫层'.$callFloor,
-            "groupname" => "左笼",
+            "name" => $LR.'呼叫层'.$callFloor,
+            "groupname" => $LR.'笼',
             "value" => 1,
             "type" => 1
             
         ));
 
         $post_data_execute = json_encode(array(
-            "name" => '左目标层'.$callFloor,
-            "groupname" => "左笼",
+            "name" => $LR.'目标层'.$callFloor,
+            "groupname" => $LR.'笼',
             "value" => 1,
             "type" => 1,
         ));
 
         if($isExecute){
             //execute
-            list($httpCode , $resContent) = send_post_jsonX2('http://fbcs101.fbox360.com/api/v2/dmon/value?boxNo=338221114635', $post_data_execute, $this->globalToken);
+            list($httpCode , $resContent) = send_post_jsonX2('http://fbcs101.fbox360.com/api/v2/dmon/value?boxNo='.$data_boxNo, $post_data_execute, $this->globalToken);
         }else{
             //call
-            list($httpCode , $resContent) = send_post_jsonX2('http://fbcs101.fbox360.com/api/v2/dmon/value?boxNo=338221114635', $post_data_call, $this->globalToken);
+            list($httpCode , $resContent) = send_post_jsonX2('http://fbcs101.fbox360.com/api/v2/dmon/value?boxNo='.$data_boxNo, $post_data_call, $this->globalToken);
         }
         //list($httpCode_finsh , $resContent_finsh) = send_post_jsonX2('http://fbcs101.fbox360.com/api/v2/dmon/value?boxNo=338221114635', $post_data_finsh, $this->globalToken);
         

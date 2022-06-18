@@ -388,8 +388,8 @@ abstract class Response
                 $content,
                 '__toString',
             ])
-            ) {
-                throw new \InvalidArgumentException(sprintf('variable type error： %s', gettype($content)));
+            ) {//忽略类型校验，否则会将图片流转换成text，并返回500
+                //throw new \InvalidArgumentException(sprintf('variable type error： %s', gettype($content)));
             }
 
             $this->content = (string) $content;

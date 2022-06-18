@@ -29,4 +29,9 @@ return [
     'error_message'    => '页面错误！请稍后再试～',
     // 显示错误信息
     'show_error_msg'   => true,
+
+
+    'Appid'   => "wxc71adb8b5e6cdf60",//小程序appid
+    'Secret'  => "bc90b72d42dbe360158834800852865a",//小程序Secret/小程序Secret
+
 ];

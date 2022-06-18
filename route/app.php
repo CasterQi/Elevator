@@ -22,5 +22,10 @@ Route::get('/api/get_current_floor', 'index/getCurrentFloor');
 
 Route::post('/api/elevator_call', 'index/elevatorCall');
 
+Route::get('/admin', 'admin/index');
+
+Route::post('/api/getQRcode', 'admin/getQRcode');
+Route::get('/api/getQRcode', 'admin/getQRcode');
+
 
 

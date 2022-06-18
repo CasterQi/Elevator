@@ -1,5 +1,22 @@
 <?php
 
+
+function get_wx($url){
+    $info = curl_init();
+    curl_setopt($info,CURLOPT_RETURNTRANSFER,true);
+    curl_setopt($info,CURLOPT_HEADER,0);
+    curl_setopt($info,CURLOPT_NOBODY,0);
+    curl_setopt($info,CURLOPT_SSL_VERIFYPEER,false);
+    curl_setopt($info,CURLOPT_SSL_VERIFYPEER,false);
+    curl_setopt($info,CURLOPT_SSL_VERIFYHOST,false);
+    curl_setopt($info,CURLOPT_URL,$url);
+    $output = curl_exec($info);
+    curl_close($info);
+    $res = json_decode($output,true);
+    return $res;
+}
+
+
 function send_postX($url, $post_data) {
         $postdata = http_build_query($post_data);
         $options = array(
@@ -16,12 +33,12 @@ function send_postX($url, $post_data) {
       }
 
 
-function send_post_jsonX($url, $post_data, $token) {
-    $postdata = http_build_query($post_data);
+function send_post_jsonX($url, $post_data, $token='') {
+    $postdata = json_encode($post_data);
     $options = array(
         'http' => array(
         'method' => 'POST',
-        'header' => 'Authorization:Bearer '.$token.'\r\n'.
+        'header' => //'Authorization:Bearer '.$token.'\r\n'.
                     'Content-Type:application/json\n',
                     
         'content' => $postdata,

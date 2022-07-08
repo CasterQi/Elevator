@@ -154,7 +154,7 @@ class Index
         }
     }
 
-   
+
     public function getCurrentFloor($data_boxNo,$data_direction){
         if($this->globalToken == ''){
             $this->globalToken = (new AccessToken)->find(1)["main"];
@@ -266,7 +266,7 @@ class Index
         }
         //list($httpCode_finsh , $resContent_finsh) = send_post_jsonX2('http://fbcs101.fbox360.com/api/v2/dmon/value?boxNo=338221114635', $post_data_finsh, $this->globalToken);
         
-        Log::write(($isExecute ? 'elevatorExecute' : 'elevatorCall').'  rsp: '.$httpCode.' '.$callFloor.$post_data_call);
+        Log::write(('resContent:'.$resContent.$isExecute ? 'elevatorExecute' : 'elevatorCall').'  rsp: '.$httpCode.' '.$callFloor.$post_data_call);
         if($httpCode == 200){
             $restojs = [
                 "code" => 0,

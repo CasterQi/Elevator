@@ -63,7 +63,7 @@ class admin
            return json($elevatorQuery)->contentType('application/json');
        }
        $elevator = new Elevator();
-       $time=date("Y-m-d H:i:s",strtotime('+1year'));
+       //$time=date("Y-m-d H:i:s",strtotime('+1year'));
        switch ($data_validDate){
            case 0:
                $time = date("Y-m-d H:i:s",strtotime('+1year'));
@@ -94,6 +94,7 @@ class admin
        $data = array(
            //'access_token' => $this->getWXAccessToken(),
            'scene' => $data_boxNo.'#'.$data_direction.(empty($data_defaultFloor)?"":'#'.$data_defaultFloor),
+           //'scene' => '###AsudoAA',
            'width'=> 800
        );
        $QRcodeData = send_post_jsonX('https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token='.$this->getWXAccessToken(), $data);
@@ -102,9 +103,11 @@ class admin
        $im = imagecreatefromstring($QRcodeData);
 
        $black = ImageColorAllocate($im, 0, 0, 0);
+       
+
        //dump(dirname(__FILE__));
        //发现是GD库加载字体文件时，需求提供绝对路径，给font路径用realpath()将相对路径转成绝对路径即可
-       imagettftext($im,10,0,15,15,$black,"/app/app/Alibaba-PuHuiTi-Medium.ttf",'No:'.$data_boxNo.' '.$data_displayName.' Valid:'.substr($time,0,10).' '.$data_direction.$data_defaultFloor);
+       imagettftext($im,10,0,15,15,$black,"/app/app/Alibaba-PuHuiTi-Medium.ttf",'No:'.$data_boxNo.' '.$data_displayName.' VT:'.date('W',strtotime($time)).substr($time,3,1).' '.$data_direction.$data_defaultFloor);
        $processedImg = imagejpeg($im);
        imagedestroy($im);
        try {

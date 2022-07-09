@@ -24,7 +24,7 @@
         "topthink/framework": "^6.0.0",
         "topthink/think-orm": "^2.0",
         "guzzlehttp/guzzle":"^6.0.0",
-      "ext-gd": "*",
+        "ext-gd": "*",
         "alibabacloud/iot-20180120": "^3.0.4",
         "alibabacloud/darabonba-openapi": "^0.2.5",
         "alibabacloud/tea-console": "^0.1.0",

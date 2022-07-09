@@ -7,10 +7,17 @@ namespace Composer\Autoload;
 class ComposerStaticInit19c02ca2469af2a5512f466a2c8179b7
 {
     public static $files = array (
+        '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
+        '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
+        'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
+        'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
+        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
+        'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
+        'd767e4fc2dc52fe66584ab8c6684783e' => __DIR__ . '/..' . '/adbario/php-dot-notation/src/helpers.php',
+        '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         '9b552a3cc426e3287cc811caefa3cf53' => __DIR__ . '/..' . '/topthink/think-helper/src/helper.php',
         '35fab96057f1bf5e7aba31a8a6d5fdde' => __DIR__ . '/..' . '/topthink/think-orm/stubs/load_stubs.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
-        '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
     );
@@ -30,19 +37,52 @@ class ComposerStaticInit19c02ca2469af2a5512f466a2c8179b7
             'Symfony\\Polyfill\\Php80\\' => 23,
             'Symfony\\Polyfill\\Php72\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Polyfill\\Intl\\Normalizer\\' => 33,
+            'Symfony\\Polyfill\\Intl\\Idn\\' => 26,
             'Symfony\\Component\\VarDumper\\' => 28,
         ),
         'P' => 
         array (
             'Psr\\SimpleCache\\' => 16,
             'Psr\\Log\\' => 8,
+            'Psr\\Http\\Message\\' => 17,
             'Psr\\Container\\' => 14,
             'Psr\\Cache\\' => 10,
+        ),
+        'O' => 
+        array (
+            'OneSm\\' => 6,
+        ),
+        'M' => 
+        array (
+            'Monolog\\' => 8,
         ),
         'L' => 
         array (
             'League\\Flysystem\\Cached\\' => 24,
             'League\\Flysystem\\' => 17,
+        ),
+        'G' => 
+        array (
+            'GuzzleHttp\\Psr7\\' => 16,
+            'GuzzleHttp\\Promise\\' => 19,
+            'GuzzleHttp\\' => 11,
+        ),
+        'D' => 
+        array (
+            'Darabonba\\OpenApi\\' => 18,
+            'Darabonba\\GatewaySpi\\' => 21,
+        ),
+        'A' => 
+        array (
+            'AlibabaCloud\\Tea\\Utils\\' => 23,
+            'AlibabaCloud\\Tea\\Console\\' => 25,
+            'AlibabaCloud\\Tea\\' => 17,
+            'AlibabaCloud\\SDK\\Iot\\V20180120\\' => 31,
+            'AlibabaCloud\\OpenApiUtil\\' => 25,
+            'AlibabaCloud\\Endpoint\\' => 22,
+            'AlibabaCloud\\Credentials\\' => 25,
+            'Adbar\\' => 6,
         ),
     );
 
@@ -53,9 +93,9 @@ class ComposerStaticInit19c02ca2469af2a5512f466a2c8179b7
         ),
         'think\\' => 
         array (
-            0 => __DIR__ . '/..' . '/topthink/think-helper/src',
-            1 => __DIR__ . '/..' . '/topthink/think-orm/src',
-            2 => __DIR__ . '/..' . '/topthink/framework/src/think',
+            0 => __DIR__ . '/..' . '/topthink/framework/src/think',
+            1 => __DIR__ . '/..' . '/topthink/think-helper/src',
+            2 => __DIR__ . '/..' . '/topthink/think-orm/src',
         ),
         'app\\' => 
         array (
@@ -73,6 +113,14 @@ class ComposerStaticInit19c02ca2469af2a5512f466a2c8179b7
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
+        'Symfony\\Polyfill\\Intl\\Normalizer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer',
+        ),
+        'Symfony\\Polyfill\\Intl\\Idn\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-intl-idn',
+        ),
         'Symfony\\Component\\VarDumper\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/var-dumper',
@@ -85,6 +133,10 @@ class ComposerStaticInit19c02ca2469af2a5512f466a2c8179b7
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
         ),
+        'Psr\\Http\\Message\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+        ),
         'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
@@ -93,6 +145,14 @@ class ComposerStaticInit19c02ca2469af2a5512f466a2c8179b7
         array (
             0 => __DIR__ . '/..' . '/psr/cache/src',
         ),
+        'OneSm\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/lizhichao/one-sm/src',
+        ),
+        'Monolog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
         'League\\Flysystem\\Cached\\' => 
         array (
             0 => __DIR__ . '/..' . '/league/flysystem-cached-adapter/src',
@@ -100,6 +160,58 @@ class ComposerStaticInit19c02ca2469af2a5512f466a2c8179b7
         'League\\Flysystem\\' => 
         array (
             0 => __DIR__ . '/..' . '/league/flysystem/src',
+        ),
+        'GuzzleHttp\\Psr7\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
+        ),
+        'GuzzleHttp\\Promise\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/guzzlehttp/promises/src',
+        ),
+        'GuzzleHttp\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
+        ),
+        'Darabonba\\OpenApi\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/alibabacloud/darabonba-openapi/src',
+        ),
+        'Darabonba\\GatewaySpi\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/alibabacloud/gateway-spi/src',
+        ),
+        'AlibabaCloud\\Tea\\Utils\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/alibabacloud/tea-utils/src',
+        ),
+        'AlibabaCloud\\Tea\\Console\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/alibabacloud/tea-console/src',
+        ),
+        'AlibabaCloud\\Tea\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/alibabacloud/tea/src',
+        ),
+        'AlibabaCloud\\SDK\\Iot\\V20180120\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/alibabacloud/iot-20180120/src',
+        ),
+        'AlibabaCloud\\OpenApiUtil\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/alibabacloud/openapi-util/src',
+        ),
+        'AlibabaCloud\\Endpoint\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/alibabacloud/endpoint-util/src',
+        ),
+        'AlibabaCloud\\Credentials\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/alibabacloud/credentials/src',
+        ),
+        'Adbar\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/adbario/php-dot-notation/src',
         ),
     );
 
@@ -110,6 +222,8 @@ class ComposerStaticInit19c02ca2469af2a5512f466a2c8179b7
     public static $classMap = array (
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
+        'PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
         'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
